@@ -67,7 +67,7 @@
     .screen { display: none; }
     .screen.active { display: flex; flex-direction: column; min-height: 100dvh; padding-bottom: 70px; }
 
-    /* â”€â”€ LOGIN â”€â”€ */
+    /* ── LOGIN ── */
     #loginScreen {
       justify-content: center; align-items: center; padding: 32px 24px;
       padding-bottom: 32px;
@@ -146,7 +146,7 @@
       font-size: 13px; font-weight: 600;
     }
 
-    /* â”€â”€ SCANNER â”€â”€ */
+    /* ── SCANNER ── */
     #scanScreen { padding-bottom: 84px; }
     .top-bar {
       position: sticky; top: 0; z-index: 100;
@@ -375,7 +375,7 @@
     .stock-type-badge.type-C { background: rgba(52,152,219,.12); color: #3498db; }
     .stock-type-badge.type-CV { background: rgba(243,156,18,.12); color: #f39c12; }
 
-    /* â•â•â• EXPORT SALONKEE SCREEN â•â•â• */
+    /* ═══ EXPORT SALONKEE SCREEN ═══ */
     .export-date-bar { padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
     .export-date-bar select { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border-light); background: var(--card-bg); color: var(--text-primary); font-size: 14px; min-height: 44px; }
     .export-toolbar { padding: 0 16px 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -431,7 +431,7 @@
     }
     .offline-pill.show { display: block; }
 
-    /* Toggle Ouvert/FermÃ© */
+    /* Toggle Ouvert/Fermé */
     .etat-toggle {
       display: flex; align-items: center; gap: 6px;
       padding: 4px 10px; border-radius: 20px;
@@ -464,10 +464,10 @@
       font-size: 9px; font-weight: 700; padding: 1px 5px;
       border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;
     }
-    .etat-badge.fermÃ© { background: var(--mint-dim); color: var(--mint); }
+    .etat-badge.fermé { background: var(--mint-dim); color: var(--mint); }
     .etat-badge.ouvert { background: var(--amber-glow); color: var(--amber); }
 
-    /* â”€â”€ TAB BAR â”€â”€ */
+    /* ── TAB BAR ── */
     .tab-bar {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
       display: none; height: 60px;
@@ -490,7 +490,7 @@
     .tab-item.active { color: var(--rose); }
     .tab-item:active { transform: scale(0.93); }
 
-    /* â”€â”€ STOCK SCREEN â”€â”€ */
+    /* ── STOCK SCREEN ── */
     #stockScreen { padding-bottom: 80px; }
     #exportScreen { padding-bottom: 80px; }
     #stockScreen .top-bar { margin-bottom: 0; }
@@ -515,7 +515,7 @@
       flex: 1; position: relative;
     }
     .stock-search-wrap::before {
-      content: 'ðŸ”'; position: absolute; left: 12px; top: 50%;
+      content: '🔍'; position: absolute; left: 12px; top: 50%;
       transform: translateY(-50%); font-size: 14px; pointer-events: none;
     }
     .stock-filter-btn {
@@ -693,21 +693,21 @@
   <div class="screen active" id="loginScreen">
     <div class="login-card">
       <div class="login-logo">
-        <div class="icon">âœ‚ï¸</div>
+        <div class="icon">✂️</div>
         <h1>Inventaire Salon</h1>
-        <p>Scanner multi-poste Â· inventaire physique</p>
+        <p>Scanner multi-poste · inventaire physique</p>
       </div>
 
       <div class="login-error" id="loginError"></div>
 
       <div id="step1">
         <div class="form-field token-field">
-          <label>ðŸª Code salon</label>
+          <label>🏪 Code salon</label>
           <input type="text" id="inputCode" placeholder="BELLA" autocapitalize="characters" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:2px;font-weight:700;">
         </div>
         <div class="form-field token-field">
-          <label>ðŸ”’ PIN</label>
-          <input type="password" id="inputPin" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢" inputmode="numeric" maxlength="8" autocomplete="off">
+          <label>🔒 PIN</label>
+          <input type="password" id="inputPin" placeholder="••••••" inputmode="numeric" maxlength="8" autocomplete="off">
         </div>
         <button class="btn btn-primary" id="btnValidate" onclick="validateToken()">
           Se connecter
@@ -715,17 +715,17 @@
       </div>
 
       <div id="step2" class="step2">
-        <div class="step-ok">âœ… Connexion OK</div>
+        <div class="step-ok">✅ Connexion OK</div>
         <div class="form-field">
-          <label>Votre prÃ©nom</label>
+          <label>Votre prénom</label>
           <input type="text" id="inputName" placeholder="Marie, Julie, Sonia...">
         </div>
         <div class="form-field">
-          <label>Zone par dÃ©faut</label>
+          <label>Zone par défaut</label>
           <select id="inputZone"></select>
         </div>
         <button class="btn btn-primary" onclick="startScanner()">
-          Lancer le scanner ðŸ“·
+          Lancer le scanner 📷
         </button>
       </div>
     </div>
@@ -735,11 +735,11 @@
   <div class="screen" id="scanScreen">
     <div class="top-bar">
       <div class="top-bar-left">
-        <div class="logo-mini">âœ‚ï¸</div>
+        <div class="logo-mini">✂️</div>
         <h2>Inventaire</h2>
       </div>
       <div class="user-pill" id="userPill"></div>
-      <button class="btn btn-ghost" id="btnPause" onclick="togglePause()" style="padding:8px 12px;font-size:13px;width:auto;">â¸</button>
+      <button class="btn btn-ghost" id="btnPause" onclick="togglePause()" style="padding:8px 12px;font-size:13px;width:auto;">⏸</button>
     </div>
 
     <div class="stats-row">
@@ -763,14 +763,14 @@
     <div class="controls-strip">
       <div class="controls-row">
         <div class="qty-control">
-          <span class="label">QtÃ©</span>
-          <button class="qty-btn" onclick="adjustQty(-1)">âˆ’</button>
+          <span class="label">Qté</span>
+          <button class="qty-btn" onclick="adjustQty(-1)">−</button>
           <div class="qty-display" id="qtyDisplay">1</div>
           <button class="qty-btn" onclick="adjustQty(1)">+</button>
         </div>
-        <div class="etat-toggle" id="etatToggle" onclick="toggleEtat()" title="FermÃ© = neuf / Ouvert = entamÃ©">
+        <div class="etat-toggle" id="etatToggle" onclick="toggleEtat()" title="Fermé = neuf / Ouvert = entamé">
           <div class="etat-track"><div class="etat-thumb"></div></div>
-          <span class="etat-label" id="etatLabel">FermÃ©</span>
+          <span class="etat-label" id="etatLabel">Fermé</span>
         </div>
         <div class="zone-pills" id="zonePills"></div>
       </div>
@@ -788,8 +788,8 @@
       </div>
       <div class="history-list" id="historyList">
         <div class="empty-state">
-          <div class="empty-icon">ðŸ“·</div>
-          <p>Scannez un code-barres pour commencer.<br>Pointez la camÃ©ra vers le produit.</p>
+          <div class="empty-icon">📷</div>
+          <p>Scannez un code-barres pour commencer.<br>Pointez la caméra vers le produit.</p>
         </div>
       </div>
     </div>
@@ -799,7 +799,7 @@
   <div class="screen" id="stockScreen">
     <div class="top-bar">
       <div class="top-bar-left">
-        <div class="logo-mini">âœ‚ï¸</div>
+        <div class="logo-mini">✂️</div>
         <h2>Stock</h2>
       </div>
       <div class="user-pill" id="stockUserPill"></div>
@@ -827,12 +827,12 @@
 
 
     <div class="stock-summary" id="stockSummary" style="display:none;">
-      <div class="stock-summary-cell"><div class="val" id="stockTotalRefs">â€”</div><div class="lbl">Produits</div></div>
-      <div class="stock-summary-cell accent"><div class="val" id="stockTotalFermes">â€”</div><div class="lbl">FermÃ©s</div></div>
-      <div class="stock-summary-cell warn"><div class="val" id="stockTotalOuverts">â€”</div><div class="lbl">Ouverts</div></div>
-      <div class="stock-summary-cell"><div class="val" id="stockTotalCout">â€”</div><div class="lbl">CoÃ»t â‚¬</div></div>
-      <div class="stock-summary-cell"><div class="val" id="stockTotalVente">â€”</div><div class="lbl">Vente â‚¬</div></div>
-      <div class="stock-summary-cell"><div class="val" id="stockTotalPerte" style="color:var(--coral);">â€”</div><div class="lbl">Perte â‚¬</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalRefs">—</div><div class="lbl">Produits</div></div>
+      <div class="stock-summary-cell accent"><div class="val" id="stockTotalFermes">—</div><div class="lbl">Fermés</div></div>
+      <div class="stock-summary-cell warn"><div class="val" id="stockTotalOuverts">—</div><div class="lbl">Ouverts</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalCout">—</div><div class="lbl">Coût €</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalVente">—</div><div class="lbl">Vente €</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalPerte" style="color:var(--coral);">—</div><div class="lbl">Perte €</div></div>
     </div>
 
     <div class="stock-list" id="stockList">
@@ -864,17 +864,17 @@
     <div class="export-counter" id="exportCounter"></div>
     <div class="export-carousel" id="exportCarousel">
       <div class="export-empty">
-        <div class="empty-icon">ðŸ“¤</div>
-        <p>SÃ©lectionnez une date d'inventaire<br>pour gÃ©nÃ©rer les fiches Salonkee.</p>
-        <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">Chaque fiche affiche le code-barres scannable,<br>le stock comptÃ© et l'Ã©cart vs catalogue.</p>
+        <div class="empty-icon">📤</div>
+        <p>Sélectionnez une date d'inventaire<br>pour générer les fiches Salonkee.</p>
+        <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">Chaque fiche affiche le code-barres scannable,<br>le stock compté et l'écart vs catalogue.</p>
       </div>
     </div>
     <div class="export-nav" id="exportNav" style="display:none;">
-      <button class="export-nav-btn" id="exportPrev" onclick="exportNavigate(-1)">â—€ PrÃ©cÃ©dent</button>
-      <button class="export-nav-btn" id="exportNext" onclick="exportNavigate(1)">Suivant â–¶</button>
+      <button class="export-nav-btn" id="exportPrev" onclick="exportNavigate(-1)">◀ Précédent</button>
+      <button class="export-nav-btn" id="exportNext" onclick="exportNavigate(1)">Suivant ▶</button>
     </div>
     <div class="export-auto-row" id="exportAutoRow" style="display:none;">
-      <button class="export-auto-btn" id="exportAutoBtn" onclick="toggleAutoAdvance()">â© DÃ©filement auto (5s)</button>
+      <button class="export-auto-btn" id="exportAutoBtn" onclick="toggleAutoAdvance()">⏩ Défilement auto (5s)</button>
     </div>
   </div>
 
@@ -882,22 +882,22 @@
   <div class="tab-bar" id="tabBar">
     <div class="tab-bar-inner">
       <button class="tab-item active" id="tabScanner" onclick="switchTab('scanner')">
-        <span class="tab-icon">ðŸ“·</span>Scanner
+        <span class="tab-icon">📷</span>Scanner
       </button>
       <button class="tab-item" id="tabStock" onclick="switchTab('stock')">
-        <span class="tab-icon">ðŸ“¦</span>Stock
+        <span class="tab-icon">📦</span>Stock
       </button>
       <button class="tab-item" id="tabExport" onclick="switchTab('export')">
-        <span class="tab-icon">ðŸ“¤</span>Export
+        <span class="tab-icon">📤</span>Export
       </button>
       <button class="tab-item" id="tabConfig" onclick="goToLogin()">
-        <span class="tab-icon">âš™ï¸</span>Config
+        <span class="tab-icon">⚙️</span>Config
       </button>
     </div>
   </div>
 
 
-  <div class="offline-pill" id="offlinePill">âš¡ Hors-ligne â€” scans en file d'attente</div>
+  <div class="offline-pill" id="offlinePill">⚡ Hors-ligne — scans en file d'attente</div>
 
   <!-- Unknown product modal -->
   <div class="modal-bg" id="unknownModal">
@@ -911,11 +911,11 @@
       </div>
       <div class="form-field">
         <label>Nom du produit</label>
-        <input type="text" id="modalProduct" placeholder="Shampoing RÃ©parateur 250ml">
+        <input type="text" id="modalProduct" placeholder="Shampoing Réparateur 250ml">
       </div>
       <div class="form-field">
         <label>Marque</label>
-        <input type="text" id="modalBrand" placeholder="KÃ©rastase, L'OrÃ©al, OPI...">
+        <input type="text" id="modalBrand" placeholder="Kérastase, L'Oréal, OPI...">
       </div>
       <div class="form-field">
         <label>Catégorie</label>
@@ -924,29 +924,24 @@
       </div>
       <div class="form-field" style="display:flex;gap:8px;">
         <div style="flex:1;">
-          <label>Prix achat â‚¬</label>
+          <label>Prix achat €</label>
           <input type="number" id="modalPrixAchat" placeholder="12.50" step="0.01" min="0" inputmode="decimal">
         </div>
         <div style="flex:1;">
-          <label>Prix vente â‚¬</label>
+          <label>Prix vente €</label>
           <input type="number" id="modalPrixVente" placeholder="28.00" step="0.01" min="0" inputmode="decimal">
         </div>
       </div>
       <div class="form-field">
         <label>Usage</label>
         <div class="type-pills" id="modalTypePills">
-          <button class="type-pill active" data-type="V" onclick="selectType(this)">ðŸ·ï¸ Vente</button>
-          <button class="type-pill" data-type="C" onclick="selectType(this)">ðŸ§´ Conso</button>
-          <button class="type-pill" data-type="CV" onclick="selectType(this)">â†”ï¸ Les deux</button>
+          <button class="type-pill active" data-type="V" onclick="selectType(this)">🏷️ Vente</button>
+          <button class="type-pill" data-type="C" onclick="selectType(this)">🧴 Conso</button>
+          <button class="type-pill" data-type="CV" onclick="selectType(this)">↔️ Les deux</button>
         </div>
       </div>
             <div class="photo-capture">
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);letter-spacing:0.4px;text-transform:uppercase;margin-bottom:8px;">Photo (optionnel)</label>
-        <div class="photo-viewfinder" id="photoViewfinder">
-          <video id="photoVideo" autoplay playsinline muted></video>
-          <button class="vf-shutter" onclick="captureFromViewfinder()">📸</button>
-          <button class="vf-close" onclick="closeViewfinder()">✕</button>
-        </div>
         <div class="photo-row">
           <div class="photo-preview" id="photoPreview">📷</div>
           <button class="photo-btn" id="photoBtn" onclick="openViewfinder()">📸 Prendre une photo</button>
@@ -962,12 +957,26 @@
     </div>
   </div>
 
+  <!-- Fullscreen photo viewfinder overlay -->
+  <div class="vf-overlay" id="vfOverlay">
+    <video id="photoVideo" autoplay playsinline muted></video>
+    <div class="vf-ui">
+      <button class="vf-close-btn" onclick="closeViewfinder()">✕</button>
+      <div class="vf-bottom">
+        <p class="vf-hint">Cadrez le produit puis appuyez</p>
+        <button class="vf-shutter-btn" onclick="captureFromViewfinder()">
+          <span class="vf-shutter-ring"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-    // âš ï¸  URL DU SERVEUR â€” modifier avant dÃ©ploiement
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════════════════════════════════════════════
+    // ⚠️  URL DU SERVEUR — modifier avant déploiement
+    // ═══════════════════════════════════════════════════
     const API_URL = 'https://script.google.com/macros/s/AKfycbxMoA3-OOkcK0_drVxxRwd6POay8m3ylQJ0N6idqt2NMV9cpWNEX7iuww6aEB9BjlL_/exec';
-    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════════════════════════════════════════════
 
     let TOKEN = '', userName = '', currentZone = '', currentQty = 1, currentEtat = 'F';
     let scanner = null, scannerActive = false, isPaused = false;
@@ -978,7 +987,7 @@
     const SCAN_LOCK_MS = 2500; // bloque nouveau scan pendant l'animation complète
     let scanIdCounter = 0;
 
-    // â”€â”€ API helper: tout passe en POST, token dans le body, rÃ©ponse lisible â”€â”€
+    // ── API helper: tout passe en POST, token dans le body, réponse lisible ──
     async function apiCall(action, params = {}) {
       const body = { action, token: TOKEN, ...params };
       const resp = await fetch(API_URL, {
@@ -992,7 +1001,7 @@
       return data;
     }
 
-    // â”€â”€ Audio â”€â”€
+    // ── Audio ──
     let audioCtx = null;
     function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
 
@@ -1029,7 +1038,7 @@
       // Big icon
       const icon = document.getElementById('scanIcon');
       icon.className = 'scan-icon';
-      icon.textContent = type === 'success' ? 'âœ“' : '?';
+      icon.textContent = type === 'success' ? '✓' : '?';
       void icon.offsetWidth;
       icon.classList.add('pop', type === 'success' ? 'icon-success' : 'icon-warning');
     }
@@ -1040,7 +1049,7 @@
       setTimeout(() => el.classList.remove('show'), 2200);
     }
 
-    // â”€â”€ Restore â”€â”€
+    // ── Restore ──
     (function() {
       const u = localStorage.getItem('inv_user');
       if (u) document.getElementById('inputName').value = u;
@@ -1050,7 +1059,7 @@
       if (q) offlineQueue = JSON.parse(q);
     })();
 
-    // â•â•â•â•â•â•â•â•â•â•â• LOGIN STEP 1 â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════ LOGIN STEP 1 ═══════════
     async function validateToken() {
       const code = document.getElementById('inputCode').value.trim().toUpperCase();
       const pin = document.getElementById('inputPin').value.trim();
@@ -1060,7 +1069,7 @@
       TOKEN = code + ":" + pin;
 
       const btn = document.getElementById('btnValidate');
-      btn.innerHTML = '<span class="spinner"></span> VÃ©rification...'; btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Vérification...'; btn.disabled = true;
 
       try {
         await apiCall('ping');
@@ -1075,7 +1084,7 @@
       }
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â• LOGIN STEP 2 â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════ LOGIN STEP 2 ═══════════
     async function startScanner() {
       userName = document.getElementById('inputName').value.trim() || 'Anonyme';
       currentZone = document.getElementById('inputZone').value;
@@ -1140,13 +1149,13 @@
       setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 4000);
     }
 
-    // â”€â”€ Data loading â”€â”€
+    // ── Data loading ──
     async function loadZones() {
       try {
         const d = await apiCall('getZones');
         if (d.zones) ZONES = d.zones;
       } catch {
-        ZONES = [{nom:'Vitrine',emoji:'ðŸªŸ'},{nom:'RÃ©serve',emoji:'ðŸ“¦'},{nom:'Coiffure',emoji:'ðŸ’‡'},{nom:'Manucure',emoji:'ðŸ’…'},{nom:'Accueil',emoji:'ðŸ›‹ï¸'}];
+        ZONES = [{nom:'Vitrine',emoji:'🪟'},{nom:'Réserve',emoji:'📦'},{nom:'Coiffure',emoji:'💇'},{nom:'Manucure',emoji:'💅'},{nom:'Accueil',emoji:'🛋️'}];
       }
     }
     function populateZoneSelect() {
@@ -1184,7 +1193,7 @@
       }
     }
 
-    // â”€â”€ Controls â”€â”€
+    // ── Controls ──
     function adjustQty(delta) {
       currentQty = Math.max(1, Math.min(99, currentQty + delta));
       document.getElementById('qtyDisplay').textContent = currentQty;
@@ -1199,11 +1208,11 @@
         label.textContent = 'Ouvert';
       } else {
         el.classList.remove('ouvert');
-        label.textContent = 'FermÃ©';
+        label.textContent = 'Fermé';
       }
     }
 
-    // â”€â”€ Camera â”€â”€
+    // ── Camera ──
     function initCamera() {
       scanner = new Html5Qrcode("reader");
       // Responsive qrbox — 76% of viewport width, bar-shaped
@@ -1226,11 +1235,11 @@
     function togglePause() {
       if (!scanner) return;
       const btn = document.getElementById('btnPause');
-      if (isPaused) { scanner.resume(); isPaused = false; scannerActive = true; btn.textContent = 'â¸ Pause'; }
-      else { scanner.pause(true); isPaused = true; scannerActive = false; btn.textContent = 'â–¶ï¸ Reprendre'; }
+      if (isPaused) { scanner.resume(); isPaused = false; scannerActive = true; btn.textContent = '⏸ Pause'; }
+      else { scanner.pause(true); isPaused = true; scannerActive = false; btn.textContent = '▶️ Reprendre'; }
     }
 
-    // â”€â”€ Scan â”€â”€
+    // ── Scan ──
     function onScanDetected(code) {
       const now = Date.now();
       if (scanLocked) return; // animation en cours
@@ -1265,10 +1274,10 @@
       const id = ++scanIdCounter;
 
       if (navigator.vibrate) navigator.vibrate(isKnown ? [80] : [80, 50, 80]);
-      if (isKnown) { beepSuccess(); flashScan('success'); showBanner('âœ“ ' + product.produit, 'success'); }
+      if (isKnown) { beepSuccess(); flashScan('success'); showBanner('✓ ' + product.produit, 'success'); }
       else { beepWarning(); flashScan('warning'); showBanner('? EAN ' + ean, 'warning'); }
 
-      // Freeze camÃ©ra 1.5s â€” feedback visuel "captÃ©", alignÃ© sur le lock
+      // Freeze caméra 1.5s — feedback visuel "capté", aligné sur le lock
       if (scanner && scannerActive) {
         scanner.pause(true);
         setTimeout(() => { if (!isPaused && !document.getElementById('unknownModal').classList.contains('open')) { scanner.resume(); } }, 2200);
@@ -1293,13 +1302,13 @@
       renderHistory();
 
       currentQty = 1; document.getElementById('qtyDisplay').textContent = 1;
-      // Reset Ã©tat to FermÃ©
+      // Reset état to Fermé
       // État Ouvert/Fermé is now sticky — user toggles it intentionally
       sendScan(scanData);
       if (!isKnown) setTimeout(() => showUnknownModal(ean), 700);
     }
 
-    // â”€â”€ Undo â”€â”€
+    // ── Undo ──
     function undoScan(id) {
       const entry = scanHistory.find(h => h.id === id);
       if (!entry || entry.cancelled) return;
@@ -1315,12 +1324,12 @@
       // Negative qty to cancel in the sheet
       sendScan({
         action: 'scan', token: TOKEN, ean: entry.ean,
-        produit: entry.produit + ' [ANNULÃ‰]', marque: entry.marque,
+        produit: entry.produit + ' [ANNULÉ]', marque: entry.marque,
         quantite: -entry.quantite, zone: entry.zone, etat: entry.etat || 'F', scannePar: userName
       });
     }
 
-    // â”€â”€ Network: POST avec rÃ©ponse lisible (plus de no-cors) â”€â”€
+    // ── Network: POST avec réponse lisible (plus de no-cors) ──
     async function sendScan(data) {
       if (!navigator.onLine) { offlineQueue.push(data); localStorage.setItem('inv_queue', JSON.stringify(offlineQueue)); return; }
       try {
@@ -1330,10 +1339,10 @@
         });
         const out = await resp.json();
         if (!out.success) {
-          console.warn('Scan rejetÃ©:', out.error);
-          // Si licence expirÃ©e, alerter
-          if (out.error && (out.error.includes('expir') || out.error.includes('PIN') || out.error.includes('dÃ©sactiv'))) {
-            showToast('âš ï¸ ' + out.error, 'error');
+          console.warn('Scan rejeté:', out.error);
+          // Si licence expirée, alerter
+          if (out.error && (out.error.includes('expir') || out.error.includes('PIN') || out.error.includes('désactiv'))) {
+            showToast('⚠️ ' + out.error, 'error');
           }
         }
       } catch { offlineQueue.push(data); localStorage.setItem('inv_queue', JSON.stringify(offlineQueue)); }
@@ -1551,7 +1560,7 @@
       closeModal();
     }
 
-    // â”€â”€ UI â”€â”€
+    // ── UI ──
     function refreshStats() {
       document.getElementById('statScans').textContent = stats.scans;
       document.getElementById('statProducts').textContent = stats.products.size;
@@ -1561,25 +1570,25 @@
     function renderHistory() {
       const c = document.getElementById('historyList');
       if (!scanHistory.length) {
-        c.innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸ“·</div><p>Scannez un code-barres pour commencer.</p></div>';
+        c.innerHTML = '<div class="empty-state"><div class="empty-icon">📷</div><p>Scannez un code-barres pour commencer.</p></div>';
         return;
       }
       c.innerHTML = scanHistory.slice(0, 60).map(h => `
         <div class="scan-card ${h.cancelled ? 'cancelled' : ''}">
           <div class="qty-tag ${h.known ? 'known' : 'unknown'}">${parseInt(h.quantite)||0}</div>
           <div class="details">
-            <div class="product-name ${h.known ? '' : 'is-unknown'}">${esc(h.produit)}${h.marque ? ' Â· '+esc(h.marque) : ''}${h.etat === 'O' ? ' <span class="etat-badge ouvert">ouvert</span>' : ''}</div>
-            <div class="meta">${esc(h.ean)} Â· ${esc(h.zone)}</div>
+            <div class="product-name ${h.known ? '' : 'is-unknown'}">${esc(h.produit)}${h.marque ? ' · '+esc(h.marque) : ''}${h.etat === 'O' ? ' <span class="etat-badge ouvert">ouvert</span>' : ''}</div>
+            <div class="meta">${esc(h.ean)} · ${esc(h.zone)}</div>
           </div>
           <div class="card-right">
             <div class="timestamp">${esc(h.time)}</div>
-            ${h.cancelled ? '' : '<button class="undo-btn" onclick="undoScan('+parseInt(h.id)+')" title="Annuler ce scan">â†©</button>'}
+            ${h.cancelled ? '' : '<button class="undo-btn" onclick="undoScan('+parseInt(h.id)+')" title="Annuler ce scan">↩</button>'}
           </div>
         </div>
       `).join('');
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â• TAB NAVIGATION â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════ TAB NAVIGATION ═══════════
     let currentTab = 'scanner';
     let stockData = null;
     let stockDates = [];
@@ -1627,13 +1636,13 @@
       }
     }
 
-    // â•â•â•â•â•â•â•â•â•â•â• STOCK VIEW â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════ STOCK VIEW ═══════════
 
     function buildStockZonePills() {
       const c = document.getElementById('stockZonePills');
       const allBtn = `<button class="stock-filter-btn ${stockZoneFilter === '' ? 'active' : ''}" onclick="setStockZone('')">Toutes zones</button>`;
       const zoneBtns = ZONES.map(z =>
-        `<button class="stock-filter-btn ${z.nom === stockZoneFilter ? 'active' : ''}" onclick="setStockZone(this.dataset.z)" data-z="${esc(z.nom)}">${esc(z.emoji || 'ðŸ“')} ${esc(z.nom)}</button>`
+        `<button class="stock-filter-btn ${z.nom === stockZoneFilter ? 'active' : ''}" onclick="setStockZone(this.dataset.z)" data-z="${esc(z.nom)}">${esc(z.emoji || '📍')} ${esc(z.nom)}</button>`
       ).join('');
       c.innerHTML = allBtn + zoneBtns;
     }
@@ -1641,7 +1650,7 @@
     function buildStockCatPills() {
       const c = document.getElementById('stockCatPills');
       if (!stockCategories.length) { c.innerHTML = ''; return; }
-      const allBtn = `<button class="stock-filter-btn ${stockCatFilter === '' ? 'active' : ''}" onclick="setStockCat('')">Toutes catÃ©gories</button>`;
+      const allBtn = `<button class="stock-filter-btn ${stockCatFilter === '' ? 'active' : ''}" onclick="setStockCat('')">Toutes catégories</button>`;
       const catBtns = stockCategories.map(cat =>
         `<button class="stock-filter-btn ${cat === stockCatFilter ? 'active' : ''}" onclick="setStockCat(this.dataset.v)" data-v="${esc(cat)}">${esc(cat)}</button>`
       ).join('');
@@ -1668,7 +1677,7 @@
     function buildStockTypePills() {
       const c = document.getElementById('stockTypePills');
       if (!stockData) { c.innerHTML = ''; return; }
-      const typeMap = { '': 'Tous types', V: 'ðŸ·ï¸ Vente', C: 'ðŸ§´ Conso', CV: 'â†”ï¸ Les deux' };
+      const typeMap = { '': 'Tous types', V: '🏷️ Vente', C: '🧴 Conso', CV: '↔️ Les deux' };
       const types = [...new Set(stockData.map(p => p.type || 'CV'))].sort();
       if (types.length <= 1) { c.innerHTML = ''; return; }
       let html = `<button class="stock-filter-btn ${stockTypeFilter === '' ? 'active' : ''}" onclick="setStockType('')">Tous types</button>`;
@@ -1902,7 +1911,7 @@
     }
 
 
-    // â•â•â•â•â•â•â•â•â•â•â• EXPORT SALONKEE â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════ EXPORT SALONKEE ═══════════
 
     let exportItems = [];
     let exportAllStock = [];
@@ -1966,7 +1975,7 @@
       }
 
 
-      carousel.innerHTML = '<div class="stock-loading"><div class="spinner"></div><p style="margin-top:12px;">Chargementâ€¦</p></div>';
+      carousel.innerHTML = '<div class="stock-loading"><div class="spinner"></div><p style="margin-top:12px;">Chargement…</p></div>';
 
       let fromCache = false;
       const CACHE_VER = 'v1';
@@ -1978,7 +1987,7 @@
         try {
           const data = await apiCall('getStockView', { date });
           if (!data.stock || !data.stock.length) {
-            carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">ðŸ“­</div><p>Aucun produit pour cette date.</p></div>';
+            carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">📭</div><p>Aucun produit pour cette date.</p></div>';
             document.getElementById('exportNav').style.display = 'none';
             document.getElementById('exportAutoRow').style.display = 'none';
             document.getElementById('exportCounter').textContent = '';
@@ -1991,7 +2000,7 @@
             .sort((a, b) => (a.produit || '').localeCompare(b.produit || ''));
           exportAllStock._date = date;
 
-          // Cache pour usage hors-ligne + purge anciennes entrÃ©es
+          // Cache pour usage hors-ligne + purge anciennes entrées
           try {
             localStorage.setItem(cacheKey, JSON.stringify(exportAllStock));
             purgeExportCache(CACHE_VER, CACHE_MAX);
@@ -2006,11 +2015,11 @@
               exportAllStock._date = date;
               fromCache = true;
             } else {
-              carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">âš ï¸</div><p>${esc(err.message || 'Erreur serveur')}<br><small>Aucun cache disponible.</small></p></div>`;
+              carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">⚠️</div><p>${esc(err.message || 'Erreur serveur')}<br><small>Aucun cache disponible.</small></p></div>`;
               return;
             }
           } catch {
-            carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">âš ï¸</div><p>${esc(err.message || 'Erreur serveur')}</p></div>`;
+            carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">⚠️</div><p>${esc(err.message || 'Erreur serveur')}</p></div>`;
             return;
           }
         }
@@ -2027,10 +2036,10 @@
 
       // Update ignored counter
       const ignoredEl = document.getElementById('exportIgnored');
-      ignoredEl.textContent = exportIgnoredCount > 0 ? `${exportIgnoredCount} produit${exportIgnoredCount > 1 ? 's' : ''} ignorÃ©${exportIgnoredCount > 1 ? 's' : ''} (EAN â‰  13)` : '';
+      ignoredEl.textContent = exportIgnoredCount > 0 ? `${exportIgnoredCount} produit${exportIgnoredCount > 1 ? 's' : ''} ignoré${exportIgnoredCount > 1 ? 's' : ''} (EAN ≠ 13)` : '';
 
       if (!exportItems.length) {
-        carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">ðŸ“­</div><p>Aucun produit avec stock positif' + (ean13Only ? ' et EAN-13 valide' : '') + '.</p></div>';
+        carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">📭</div><p>Aucun produit avec stock positif' + (ean13Only ? ' et EAN-13 valide' : '') + '.</p></div>';
         document.getElementById('exportNav').style.display = 'none';
         document.getElementById('exportAutoRow').style.display = 'none';
         document.getElementById('exportCounter').textContent = '';
@@ -2059,49 +2068,49 @@
       const theo = hasTh ? parseInt(theoRaw) : 0;
       const delta = hasTh ? total - theo : 0;
 
-      // Delta metric â€” colorblind-safe: blue=stock, orange=add, violet=remove, grey=equal/noref
+      // Delta metric — colorblind-safe: blue=stock, orange=add, violet=remove, grey=equal/noref
       let deltaClass, deltaVal, deltaLbl, instruction;
       if (!hasTh) {
         deltaClass = 'metric-noref';
-        deltaVal = 'Pas de rÃ©f.';
+        deltaVal = 'Pas de réf.';
         deltaLbl = 'Catalogue';
-        instruction = 'âš™ï¸ VÃ©rifier le stock thÃ©orique dans le catalogue';
+        instruction = '⚙️ Vérifier le stock théorique dans le catalogue';
       } else if (delta > 0) {
         deltaClass = 'metric-add';
-        deltaVal = 'â–² +' + delta;
-        deltaLbl = 'Ã€ ajouter';
-        instruction = 'ðŸ‘‰ Dans Salonkee, augmenter le stock Ã  ' + total;
+        deltaVal = '▲ +' + delta;
+        deltaLbl = 'À ajouter';
+        instruction = '👉 Dans Salonkee, augmenter le stock à ' + total;
       } else if (delta < 0) {
         deltaClass = 'metric-remove';
-        deltaVal = 'â–¼ ' + delta;
-        deltaLbl = 'Ã€ retirer';
-        instruction = 'ðŸ‘‰ Dans Salonkee, diminuer le stock Ã  ' + total;
+        deltaVal = '▼ ' + delta;
+        deltaLbl = 'À retirer';
+        instruction = '👉 Dans Salonkee, diminuer le stock à ' + total;
       } else {
         deltaClass = 'metric-equal';
         deltaVal = '= 0';
         deltaLbl = 'Stock conforme';
-        instruction = 'âœ… Rien Ã  modifier dans Salonkee';
+        instruction = '✅ Rien à modifier dans Salonkee';
       }
 
-      // FermÃ©s / ouverts detail line
+      // Fermés / ouverts detail line
       const f = parseInt(p.fermes) || 0;
       const o = parseInt(p.ouverts) || 0;
       const detailParts = [];
-      if (f > 0) detailParts.push(f + ' fermÃ©' + (f > 1 ? 's' : ''));
+      if (f > 0) detailParts.push(f + ' fermé' + (f > 1 ? 's' : ''));
       if (o > 0) detailParts.push(o + ' ouvert' + (o > 1 ? 's' : ''));
-      if (hasTh) detailParts.push('thÃ©orique : ' + theo);
-      const detailLine = detailParts.length ? `<div class="export-detail">${esc(detailParts.join(' Â· '))}</div>` : '';
+      if (hasTh) detailParts.push('théorique : ' + theo);
+      const detailLine = detailParts.length ? `<div class="export-detail">${esc(detailParts.join(' · '))}</div>` : '';
 
       carousel.innerHTML = `
         <div class="export-card">
           <div class="export-page">${exportIndex + 1} / ${exportItems.length}</div>
           <div class="barcode-wrap"><svg id="exportBarcode"></svg></div>
           <div class="export-product">${esc(p.produit || 'INCONNU')}</div>
-          <div class="export-brand">${esc(p.marque || '')}${p.categorie ? ' Â· ' + esc(p.categorie) : ''} ${typeBadge}</div>
+          <div class="export-brand">${esc(p.marque || '')}${p.categorie ? ' · ' + esc(p.categorie) : ''} ${typeBadge}</div>
           <div class="export-metrics">
             <div class="export-metric metric-stock">
               <div class="metric-val">${total}</div>
-              <div class="metric-lbl">Stock comptÃ©</div>
+              <div class="metric-lbl">Stock compté</div>
             </div>
             <div class="export-metric ${deltaClass}">
               <div class="metric-val">${deltaVal}</div>
@@ -2112,7 +2121,7 @@
           <div class="export-instruction">${instruction}</div>
         </div>`;
 
-      // Render barcode â€” high contrast pour scanner USB
+      // Render barcode — high contrast pour scanner USB
       try {
         const format = p.ean.length === 13 ? 'EAN13' : p.ean.length === 8 ? 'EAN8' : 'CODE128';
         JsBarcode('#exportBarcode', p.ean, {
@@ -2126,7 +2135,7 @@
         if (svg) svg.outerHTML = `<div class="export-ean">${esc(p.ean)}</div>`;
       }
 
-      document.getElementById('exportCounter').textContent = `${exportIndex + 1} / ${exportItems.length}${exportFromCache ? ' Â· âš¡ cache' : ''}`;
+      document.getElementById('exportCounter').textContent = `${exportIndex + 1} / ${exportItems.length}${exportFromCache ? ' · ⚡ cache' : ''}`;
       document.getElementById('exportPrev').disabled = (exportIndex === 0);
       document.getElementById('exportNext').disabled = (exportIndex === exportItems.length - 1);
     }
@@ -2156,7 +2165,7 @@
         stopAutoAdvance();
       } else {
         btn.classList.add('active');
-        btn.textContent = 'â¸ ArrÃªter le dÃ©filement';
+        btn.textContent = '⏸ Arrêter le défilement';
         autoAdvanceTimer = setInterval(() => {
           if (exportIndex < exportItems.length - 1) { exportIndex++; renderExportCard(); }
           else stopAutoAdvance();
@@ -2167,13 +2176,13 @@
     function stopAutoAdvance() {
       if (autoAdvanceTimer) { clearInterval(autoAdvanceTimer); autoAdvanceTimer = null; }
       const btn = document.getElementById('exportAutoBtn');
-      if (btn) { btn.classList.remove('active'); btn.textContent = 'â© DÃ©filement auto (5s)'; }
+      if (btn) { btn.classList.remove('active'); btn.textContent = '⏩ Défilement auto (5s)'; }
     }
 
     function purgeExportCache(ver, max) {
       try {
         const prefix = `exportCache:${ver}:`;
-        // Snapshot all keys first â€” removeItem shifts indices
+        // Snapshot all keys first — removeItem shifts indices
         const allKeys = [...Array(localStorage.length)].map((_, i) => localStorage.key(i)).filter(Boolean);
         const currentVer = [];
         const staleVer = [];
@@ -2195,7 +2204,7 @@
     }
   </script>
   <script>
-    // â•â•â•â•â•â•â•â•â•â•â• PWA â€” SERVICE WORKER â•â•â•â•â•â•â•â•â•â•â•
+    // ═══════════ PWA — SERVICE WORKER ═══════════
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
