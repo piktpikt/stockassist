@@ -67,7 +67,7 @@
     .screen { display: none; }
     .screen.active { display: flex; flex-direction: column; min-height: 100dvh; padding-bottom: 70px; }
 
-    /* ── LOGIN ── */
+    /* â”€â”€ LOGIN â”€â”€ */
     #loginScreen {
       justify-content: center; align-items: center; padding: 32px 24px;
       padding-bottom: 32px;
@@ -146,7 +146,7 @@
       font-size: 13px; font-weight: 600;
     }
 
-    /* ── SCANNER ── */
+    /* â”€â”€ SCANNER â”€â”€ */
     #scanScreen { padding-bottom: 84px; }
     .top-bar {
       position: sticky; top: 0; z-index: 100;
@@ -186,21 +186,26 @@
     #reader video { object-fit: cover !important; }
     #reader__scan_region { border: none !important; }
     #reader__dashboard, #reader img[alt="Info icon"], #reader__header_message { display: none !important; }
+    /* Hide html5-qrcode's built-in qrbox white markers */
+    #reader__scan_region > div { border: none !important; box-shadow: none !important; }
+    #reader__scan_region canvas { display: none !important; }
+    #qr-shaded-region { border: none !important; }
+    #reader > div:not(#reader__scan_region) { display: none !important; }
 
     .scan-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
     .scan-line {
-      position: absolute; top: 50%; left: 8%; right: 8%; height: 2px;
+      position: absolute; top: 50%; left: 12%; right: 12%; height: 2px;
       background: var(--rose); transform: translateY(-50%); border-radius: 2px;
       box-shadow: 0 0 16px var(--rose-glow), 0 0 40px var(--rose-dim);
       animation: pulse-line 2.5s ease-in-out infinite;
     }
     @keyframes pulse-line { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
-    .corner { position: absolute; width: 28px; height: 28px; }
+    .corner { position: absolute; width: 24px; height: 24px; }
     .corner::before, .corner::after { content: ''; position: absolute; background: var(--rose); border-radius: 2px; }
-    .corner-tl { top: 15%; left: 8%; } .corner-tl::before { top:0;left:0;width:28px;height:3px; } .corner-tl::after { top:0;left:0;width:3px;height:28px; }
-    .corner-tr { top: 15%; right: 8%; } .corner-tr::before { top:0;right:0;width:28px;height:3px; } .corner-tr::after { top:0;right:0;width:3px;height:28px; }
-    .corner-bl { bottom: 15%; left: 8%; } .corner-bl::before { bottom:0;left:0;width:28px;height:3px; } .corner-bl::after { bottom:0;left:0;width:3px;height:28px; }
-    .corner-br { bottom: 15%; right: 8%; } .corner-br::before { bottom:0;right:0;width:28px;height:3px; } .corner-br::after { bottom:0;right:0;width:3px;height:28px; }
+    .corner-tl { top: 25%; left: 12%; } .corner-tl::before { top:0;left:0;width:24px;height:3px; } .corner-tl::after { top:0;left:0;width:3px;height:24px; }
+    .corner-tr { top: 25%; right: 12%; } .corner-tr::before { top:0;right:0;width:24px;height:3px; } .corner-tr::after { top:0;right:0;width:3px;height:24px; }
+    .corner-bl { bottom: 25%; left: 12%; } .corner-bl::before { bottom:0;left:0;width:24px;height:3px; } .corner-bl::after { bottom:0;left:0;width:3px;height:24px; }
+    .corner-br { bottom: 25%; right: 12%; } .corner-br::before { bottom:0;right:0;width:24px;height:3px; } .corner-br::after { bottom:0;right:0;width:3px;height:24px; }
 
     .scan-flash { position: absolute; inset: 0; z-index: 20; pointer-events: none; opacity: 0; transition: opacity 0.08s ease-out; }
     .scan-flash.flash-success { background: var(--mint-glow); border: 5px solid var(--mint); opacity:1; animation: flash-out 0.7s ease-out forwards; }
@@ -370,7 +375,7 @@
     .stock-type-badge.type-C { background: rgba(52,152,219,.12); color: #3498db; }
     .stock-type-badge.type-CV { background: rgba(243,156,18,.12); color: #f39c12; }
 
-    /* ═══ EXPORT SALONKEE SCREEN ═══ */
+    /* â•â•â• EXPORT SALONKEE SCREEN â•â•â• */
     .export-date-bar { padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
     .export-date-bar select { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border-light); background: var(--card-bg); color: var(--text-primary); font-size: 14px; min-height: 44px; }
     .export-toolbar { padding: 0 16px 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -426,7 +431,7 @@
     }
     .offline-pill.show { display: block; }
 
-    /* Toggle Ouvert/Fermé */
+    /* Toggle Ouvert/FermÃ© */
     .etat-toggle {
       display: flex; align-items: center; gap: 6px;
       padding: 4px 10px; border-radius: 20px;
@@ -459,10 +464,10 @@
       font-size: 9px; font-weight: 700; padding: 1px 5px;
       border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;
     }
-    .etat-badge.fermé { background: var(--mint-dim); color: var(--mint); }
+    .etat-badge.fermÃ© { background: var(--mint-dim); color: var(--mint); }
     .etat-badge.ouvert { background: var(--amber-glow); color: var(--amber); }
 
-    /* ── TAB BAR ── */
+    /* â”€â”€ TAB BAR â”€â”€ */
     .tab-bar {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
       display: none; height: 60px;
@@ -485,8 +490,9 @@
     .tab-item.active { color: var(--rose); }
     .tab-item:active { transform: scale(0.93); }
 
-    /* ── STOCK SCREEN ── */
+    /* â”€â”€ STOCK SCREEN â”€â”€ */
     #stockScreen { padding-bottom: 80px; }
+    #exportScreen { padding-bottom: 80px; }
     #stockScreen .top-bar { margin-bottom: 0; }
 
     .stock-toolbar {
@@ -509,7 +515,7 @@
       flex: 1; position: relative;
     }
     .stock-search-wrap::before {
-      content: '🔍'; position: absolute; left: 12px; top: 50%;
+      content: 'ðŸ”'; position: absolute; left: 12px; top: 50%;
       transform: translateY(-50%); font-size: 14px; pointer-events: none;
     }
     .stock-filter-btn {
@@ -627,6 +633,52 @@
     .photo-btn:active { background: var(--rose-dim); border-color: var(--rose); }
     .photo-btn.taken { border-color: var(--mint); color: var(--mint); background: var(--mint-dim); }
 
+    /* ── Live camera viewfinder in modal ── */
+    .photo-viewfinder {
+      position: relative; width: 100%; aspect-ratio: 4/3;
+      background: #000; border-radius: var(--radius-sm);
+      overflow: hidden; margin-bottom: 10px; display: none;
+    }
+    .photo-viewfinder.active { display: block; animation: fadeUp 0.3s ease; }
+    .photo-viewfinder video {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .photo-viewfinder .vf-shutter {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); border: 3px solid var(--rose);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      transition: all 0.15s;
+    }
+    .photo-viewfinder .vf-shutter:active { transform: translateX(-50%) scale(0.9); background: var(--rose); }
+    .photo-viewfinder .vf-close {
+      position: absolute; top: 8px; right: 8px;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(0,0,0,0.5); border: none; color: #fff;
+      font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Toast notification ── */
+    .toast-notif {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px);
+      z-index: 9999; padding: 12px 24px; border-radius: 30px;
+      font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+      pointer-events: none; opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      max-width: 90%;
+    }
+    .toast-notif.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast-notif.toast-success { background: rgba(20,20,20,0.92); color: var(--mint); border: 1px solid rgba(126,219,181,0.3); backdrop-filter: blur(16px); }
+    .toast-notif.toast-error { background: rgba(20,20,20,0.92); color: var(--coral); border: 1px solid rgba(232,112,112,0.3); backdrop-filter: blur(16px); }
+    .toast-notif.toast-warn { background: rgba(20,20,20,0.92); color: var(--amber); border: 1px solid rgba(232,193,112,0.3); backdrop-filter: blur(16px); }
+
+    /* ── Button loading state ── */
+    .btn.loading { pointer-events: none; opacity: 0.7; }
+    .btn.loading .btn-text { display: none; }
+    .btn.loading .btn-spinner { display: inline-block; }
+    .btn .btn-spinner { display: none; }
+
     .spinner {
       display: inline-block; width: 16px; height: 16px;
       border: 2px solid var(--text-dim); border-top-color: var(--rose);
@@ -641,21 +693,21 @@
   <div class="screen active" id="loginScreen">
     <div class="login-card">
       <div class="login-logo">
-        <div class="icon">✂️</div>
+        <div class="icon">âœ‚ï¸</div>
         <h1>Inventaire Salon</h1>
-        <p>Scanner multi-poste · inventaire physique</p>
+        <p>Scanner multi-poste Â· inventaire physique</p>
       </div>
 
       <div class="login-error" id="loginError"></div>
 
       <div id="step1">
         <div class="form-field token-field">
-          <label>🏪 Code salon</label>
+          <label>ðŸª Code salon</label>
           <input type="text" id="inputCode" placeholder="BELLA" autocapitalize="characters" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:2px;font-weight:700;">
         </div>
         <div class="form-field token-field">
-          <label>🔒 PIN</label>
-          <input type="password" id="inputPin" placeholder="••••••" inputmode="numeric" maxlength="8" autocomplete="off">
+          <label>ðŸ”’ PIN</label>
+          <input type="password" id="inputPin" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢" inputmode="numeric" maxlength="8" autocomplete="off">
         </div>
         <button class="btn btn-primary" id="btnValidate" onclick="validateToken()">
           Se connecter
@@ -663,17 +715,17 @@
       </div>
 
       <div id="step2" class="step2">
-        <div class="step-ok">✅ Connexion OK</div>
+        <div class="step-ok">âœ… Connexion OK</div>
         <div class="form-field">
-          <label>Votre prénom</label>
+          <label>Votre prÃ©nom</label>
           <input type="text" id="inputName" placeholder="Marie, Julie, Sonia...">
         </div>
         <div class="form-field">
-          <label>Zone par défaut</label>
+          <label>Zone par dÃ©faut</label>
           <select id="inputZone"></select>
         </div>
         <button class="btn btn-primary" onclick="startScanner()">
-          Lancer le scanner 📷
+          Lancer le scanner ðŸ“·
         </button>
       </div>
     </div>
@@ -683,11 +735,11 @@
   <div class="screen" id="scanScreen">
     <div class="top-bar">
       <div class="top-bar-left">
-        <div class="logo-mini">✂️</div>
+        <div class="logo-mini">âœ‚ï¸</div>
         <h2>Inventaire</h2>
       </div>
       <div class="user-pill" id="userPill"></div>
-      <button class="btn btn-ghost" id="btnPause" onclick="togglePause()" style="padding:8px 12px;font-size:13px;width:auto;">⏸</button>
+      <button class="btn btn-ghost" id="btnPause" onclick="togglePause()" style="padding:8px 12px;font-size:13px;width:auto;">â¸</button>
     </div>
 
     <div class="stats-row">
@@ -711,14 +763,14 @@
     <div class="controls-strip">
       <div class="controls-row">
         <div class="qty-control">
-          <span class="label">Qté</span>
-          <button class="qty-btn" onclick="adjustQty(-1)">−</button>
+          <span class="label">QtÃ©</span>
+          <button class="qty-btn" onclick="adjustQty(-1)">âˆ’</button>
           <div class="qty-display" id="qtyDisplay">1</div>
           <button class="qty-btn" onclick="adjustQty(1)">+</button>
         </div>
-        <div class="etat-toggle" id="etatToggle" onclick="toggleEtat()" title="Fermé = neuf / Ouvert = entamé">
+        <div class="etat-toggle" id="etatToggle" onclick="toggleEtat()" title="FermÃ© = neuf / Ouvert = entamÃ©">
           <div class="etat-track"><div class="etat-thumb"></div></div>
-          <span class="etat-label" id="etatLabel">Fermé</span>
+          <span class="etat-label" id="etatLabel">FermÃ©</span>
         </div>
         <div class="zone-pills" id="zonePills"></div>
       </div>
@@ -736,8 +788,8 @@
       </div>
       <div class="history-list" id="historyList">
         <div class="empty-state">
-          <div class="empty-icon">📷</div>
-          <p>Scannez un code-barres pour commencer.<br>Pointez la caméra vers le produit.</p>
+          <div class="empty-icon">ðŸ“·</div>
+          <p>Scannez un code-barres pour commencer.<br>Pointez la camÃ©ra vers le produit.</p>
         </div>
       </div>
     </div>
@@ -747,7 +799,7 @@
   <div class="screen" id="stockScreen">
     <div class="top-bar">
       <div class="top-bar-left">
-        <div class="logo-mini">✂️</div>
+        <div class="logo-mini">âœ‚ï¸</div>
         <h2>Stock</h2>
       </div>
       <div class="user-pill" id="stockUserPill"></div>
@@ -758,8 +810,13 @@
         <div class="stock-search-wrap">
           <input type="text" class="stock-search" id="stockSearch" placeholder="Rechercher produit, marque, EAN..." oninput="filterStock()">
         </div>
-        <select class="stock-date-input" id="stockDate" onchange="loadStockData()">
-          <option value="">📅 Date d'inventaire…</option>
+      </div>
+      <div class="stock-toolbar-row">
+        <select class="stock-date-input" id="stockDateFrom" onchange="onStockDateChange()" style="flex:1;">
+          <option value="">📅 Du…</option>
+        </select>
+        <select class="stock-date-input" id="stockDateTo" onchange="onStockDateChange()" style="flex:1;">
+          <option value="">📅 Au… (même jour)</option>
         </select>
       </div>
       <div class="stock-toolbar-row stock-zone-pills" id="stockZonePills"></div>
@@ -768,13 +825,14 @@
       <div class="stock-toolbar-row stock-zone-pills" id="stockTypePills"></div>
     </div>
 
+
     <div class="stock-summary" id="stockSummary" style="display:none;">
-      <div class="stock-summary-cell"><div class="val" id="stockTotalRefs">—</div><div class="lbl">Produits</div></div>
-      <div class="stock-summary-cell accent"><div class="val" id="stockTotalFermes">—</div><div class="lbl">Fermés</div></div>
-      <div class="stock-summary-cell warn"><div class="val" id="stockTotalOuverts">—</div><div class="lbl">Ouverts</div></div>
-      <div class="stock-summary-cell"><div class="val" id="stockTotalCout">—</div><div class="lbl">Coût €</div></div>
-      <div class="stock-summary-cell"><div class="val" id="stockTotalVente">—</div><div class="lbl">Vente €</div></div>
-      <div class="stock-summary-cell"><div class="val" id="stockTotalPerte" style="color:var(--coral);">—</div><div class="lbl">Perte €</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalRefs">â€”</div><div class="lbl">Produits</div></div>
+      <div class="stock-summary-cell accent"><div class="val" id="stockTotalFermes">â€”</div><div class="lbl">FermÃ©s</div></div>
+      <div class="stock-summary-cell warn"><div class="val" id="stockTotalOuverts">â€”</div><div class="lbl">Ouverts</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalCout">â€”</div><div class="lbl">CoÃ»t â‚¬</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalVente">â€”</div><div class="lbl">Vente â‚¬</div></div>
+      <div class="stock-summary-cell"><div class="val" id="stockTotalPerte" style="color:var(--coral);">â€”</div><div class="lbl">Perte â‚¬</div></div>
     </div>
 
     <div class="stock-list" id="stockList">
@@ -784,9 +842,19 @@
 
   <!-- EXPORT SALONKEE SCREEN -->
   <div class="screen" id="exportScreen">
-    <div class="export-date-bar">
-      <select id="exportDate" onchange="loadExportData()">
-        <option value="">📅 Date d'inventaire…</option>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="logo-mini">✂️</div>
+        <h2>Export Salonkee</h2>
+      </div>
+      <div class="user-pill" id="exportUserPill"></div>
+    </div>
+    <div class="export-date-bar" style="gap:8px;">
+      <select id="exportDateFrom" onchange="loadExportData()" style="flex:1;">
+        <option value="">📅 Du…</option>
+      </select>
+      <select id="exportDateTo" onchange="loadExportData()" style="flex:1;">
+        <option value="">📅 Au… (même jour)</option>
       </select>
     </div>
     <div class="export-toolbar">
@@ -796,17 +864,17 @@
     <div class="export-counter" id="exportCounter"></div>
     <div class="export-carousel" id="exportCarousel">
       <div class="export-empty">
-        <div class="empty-icon">📤</div>
-        <p>Sélectionnez une date d'inventaire<br>pour générer les fiches Salonkee.</p>
-        <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">Chaque fiche affiche le code-barres scannable,<br>le stock compté et l'écart vs catalogue.</p>
+        <div class="empty-icon">ðŸ“¤</div>
+        <p>SÃ©lectionnez une date d'inventaire<br>pour gÃ©nÃ©rer les fiches Salonkee.</p>
+        <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">Chaque fiche affiche le code-barres scannable,<br>le stock comptÃ© et l'Ã©cart vs catalogue.</p>
       </div>
     </div>
     <div class="export-nav" id="exportNav" style="display:none;">
-      <button class="export-nav-btn" id="exportPrev" onclick="exportNavigate(-1)">◀ Précédent</button>
-      <button class="export-nav-btn" id="exportNext" onclick="exportNavigate(1)">Suivant ▶</button>
+      <button class="export-nav-btn" id="exportPrev" onclick="exportNavigate(-1)">â—€ PrÃ©cÃ©dent</button>
+      <button class="export-nav-btn" id="exportNext" onclick="exportNavigate(1)">Suivant â–¶</button>
     </div>
     <div class="export-auto-row" id="exportAutoRow" style="display:none;">
-      <button class="export-auto-btn" id="exportAutoBtn" onclick="toggleAutoAdvance()">⏩ Défilement auto (5s)</button>
+      <button class="export-auto-btn" id="exportAutoBtn" onclick="toggleAutoAdvance()">â© DÃ©filement auto (5s)</button>
     </div>
   </div>
 
@@ -814,21 +882,22 @@
   <div class="tab-bar" id="tabBar">
     <div class="tab-bar-inner">
       <button class="tab-item active" id="tabScanner" onclick="switchTab('scanner')">
-        <span class="tab-icon">📷</span>Scanner
+        <span class="tab-icon">ðŸ“·</span>Scanner
       </button>
       <button class="tab-item" id="tabStock" onclick="switchTab('stock')">
-        <span class="tab-icon">📦</span>Stock
+        <span class="tab-icon">ðŸ“¦</span>Stock
       </button>
       <button class="tab-item" id="tabExport" onclick="switchTab('export')">
-        <span class="tab-icon">📤</span>Export
+        <span class="tab-icon">ðŸ“¤</span>Export
       </button>
       <button class="tab-item" id="tabConfig" onclick="goToLogin()">
-        <span class="tab-icon">⚙️</span>Config
+        <span class="tab-icon">âš™ï¸</span>Config
       </button>
     </div>
   </div>
 
-  <div class="offline-pill" id="offlinePill">⚡ Hors-ligne — scans en file d'attente</div>
+
+  <div class="offline-pill" id="offlinePill">âš¡ Hors-ligne â€” scans en file d'attente</div>
 
   <!-- Unknown product modal -->
   <div class="modal-bg" id="unknownModal">
@@ -842,61 +911,74 @@
       </div>
       <div class="form-field">
         <label>Nom du produit</label>
-        <input type="text" id="modalProduct" placeholder="Shampoing Réparateur 250ml">
+        <input type="text" id="modalProduct" placeholder="Shampoing RÃ©parateur 250ml">
       </div>
       <div class="form-field">
         <label>Marque</label>
-        <input type="text" id="modalBrand" placeholder="Kérastase, L'Oréal, OPI...">
+        <input type="text" id="modalBrand" placeholder="KÃ©rastase, L'OrÃ©al, OPI...">
+      </div>
+      <div class="form-field">
+        <label>Catégorie</label>
+        <input type="text" id="modalCategorie" placeholder="Shampoing, Soin, Coloration..." list="catSuggestions">
+        <datalist id="catSuggestions"></datalist>
       </div>
       <div class="form-field" style="display:flex;gap:8px;">
         <div style="flex:1;">
-          <label>Prix achat €</label>
+          <label>Prix achat â‚¬</label>
           <input type="number" id="modalPrixAchat" placeholder="12.50" step="0.01" min="0" inputmode="decimal">
         </div>
         <div style="flex:1;">
-          <label>Prix vente €</label>
+          <label>Prix vente â‚¬</label>
           <input type="number" id="modalPrixVente" placeholder="28.00" step="0.01" min="0" inputmode="decimal">
         </div>
       </div>
       <div class="form-field">
         <label>Usage</label>
         <div class="type-pills" id="modalTypePills">
-          <button class="type-pill active" data-type="V" onclick="selectType(this)">🏷️ Vente</button>
-          <button class="type-pill" data-type="C" onclick="selectType(this)">🧴 Conso</button>
-          <button class="type-pill" data-type="CV" onclick="selectType(this)">↔️ Les deux</button>
+          <button class="type-pill active" data-type="V" onclick="selectType(this)">ðŸ·ï¸ Vente</button>
+          <button class="type-pill" data-type="C" onclick="selectType(this)">ðŸ§´ Conso</button>
+          <button class="type-pill" data-type="CV" onclick="selectType(this)">â†”ï¸ Les deux</button>
         </div>
       </div>
-      <div class="photo-capture">
+            <div class="photo-capture">
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);letter-spacing:0.4px;text-transform:uppercase;margin-bottom:8px;">Photo (optionnel)</label>
+        <div class="photo-viewfinder" id="photoViewfinder">
+          <video id="photoVideo" autoplay playsinline muted></video>
+          <button class="vf-shutter" onclick="captureFromViewfinder()">📸</button>
+          <button class="vf-close" onclick="closeViewfinder()">✕</button>
+        </div>
         <div class="photo-row">
           <div class="photo-preview" id="photoPreview">📷</div>
-          <button class="photo-btn" id="photoBtn" onclick="capturePhoto()">📸 Prendre une photo</button>
+          <button class="photo-btn" id="photoBtn" onclick="openViewfinder()">📸 Prendre une photo</button>
         </div>
       </div>
       <div class="modal-actions">
         <button class="btn btn-ghost" onclick="closeModal()">Ignorer</button>
-        <button class="btn btn-primary" onclick="saveNewProduct()">Ajouter au catalogue</button>
+        <button class="btn btn-primary" id="btnSaveProduct" onclick="saveNewProduct()">
+          <span class="btn-text">Ajouter au catalogue</span>
+          <span class="btn-spinner"><span class="spinner"></span> Ajout en cours…</span>
+        </button>
       </div>
     </div>
   </div>
 
   <script>
-    // ═══════════════════════════════════════════════════
-    // ⚠️  URL DU SERVEUR — modifier avant déploiement
-    // ═══════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // âš ï¸  URL DU SERVEUR â€” modifier avant dÃ©ploiement
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     const API_URL = 'https://script.google.com/macros/s/AKfycbxMoA3-OOkcK0_drVxxRwd6POay8m3ylQJ0N6idqt2NMV9cpWNEX7iuww6aEB9BjlL_/exec';
-    // ═══════════════════════════════════════════════════
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     let TOKEN = '', userName = '', currentZone = '', currentQty = 1, currentEtat = 'F';
     let scanner = null, scannerActive = false, isPaused = false;
     let catalogue = {}, scanHistory = [], offlineQueue = [], ZONES = [];
     let stats = { scans: 0, products: new Set(), unknown: 0 };
     let lastCode = '', lastScanTs = 0, scanLocked = false;
-    const DEBOUNCE_MS = 800;
-    const SCAN_LOCK_MS = 1800; // bloque nouveau scan pendant l'animation complète
+    const DEBOUNCE_MS = 1200;
+    const SCAN_LOCK_MS = 2500; // bloque nouveau scan pendant l'animation complète
     let scanIdCounter = 0;
 
-    // ── API helper: tout passe en POST, token dans le body, réponse lisible ──
+    // â”€â”€ API helper: tout passe en POST, token dans le body, rÃ©ponse lisible â”€â”€
     async function apiCall(action, params = {}) {
       const body = { action, token: TOKEN, ...params };
       const resp = await fetch(API_URL, {
@@ -910,7 +992,7 @@
       return data;
     }
 
-    // ── Audio ──
+    // â”€â”€ Audio â”€â”€
     let audioCtx = null;
     function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
 
@@ -947,7 +1029,7 @@
       // Big icon
       const icon = document.getElementById('scanIcon');
       icon.className = 'scan-icon';
-      icon.textContent = type === 'success' ? '✓' : '?';
+      icon.textContent = type === 'success' ? 'âœ“' : '?';
       void icon.offsetWidth;
       icon.classList.add('pop', type === 'success' ? 'icon-success' : 'icon-warning');
     }
@@ -955,10 +1037,10 @@
       const el = document.getElementById('scanBanner');
       el.textContent = text; el.className = 'scan-result-banner ' + type;
       void el.offsetWidth; el.classList.add('show');
-      setTimeout(() => el.classList.remove('show'), 1800);
+      setTimeout(() => el.classList.remove('show'), 2200);
     }
 
-    // ── Restore ──
+    // â”€â”€ Restore â”€â”€
     (function() {
       const u = localStorage.getItem('inv_user');
       if (u) document.getElementById('inputName').value = u;
@@ -968,7 +1050,7 @@
       if (q) offlineQueue = JSON.parse(q);
     })();
 
-    // ═══════════ LOGIN STEP 1 ═══════════
+    // â•â•â•â•â•â•â•â•â•â•â• LOGIN STEP 1 â•â•â•â•â•â•â•â•â•â•â•
     async function validateToken() {
       const code = document.getElementById('inputCode').value.trim().toUpperCase();
       const pin = document.getElementById('inputPin').value.trim();
@@ -978,7 +1060,7 @@
       TOKEN = code + ":" + pin;
 
       const btn = document.getElementById('btnValidate');
-      btn.innerHTML = '<span class="spinner"></span> Vérification...'; btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> VÃ©rification...'; btn.disabled = true;
 
       try {
         await apiCall('ping');
@@ -993,7 +1075,7 @@
       }
     }
 
-    // ═══════════ LOGIN STEP 2 ═══════════
+    // â•â•â•â•â•â•â•â•â•â•â• LOGIN STEP 2 â•â•â•â•â•â•â•â•â•â•â•
     async function startScanner() {
       userName = document.getElementById('inputName').value.trim() || 'Anonyme';
       currentZone = document.getElementById('inputZone').value;
@@ -1007,20 +1089,30 @@
       document.getElementById('tabBar').style.display = 'block';
       document.getElementById('userPill').textContent = userName;
       document.getElementById('stockUserPill').textContent = userName;
+      document.getElementById('exportUserPill').textContent = userName;
       buildZonePills();
       initCamera();
     }
 
     function goToLogin() {
-      if (scanner && scannerActive) { scanner.stop().catch(()=>{}); scannerActive = false; }
+      if (scanner && scannerActive) { scanner.stop().catch(()=>{}); scanner = null; scannerActive = false; }
+      // Clean session state to prevent cross-salon data leaks
+      TOKEN = ''; userName = ''; currentZone = ''; currentQty = 1; currentEtat = 'F';
+      catalogue = {}; scanHistory = []; scanIdCounter = 0;
+      stats = { scans: 0, products: new Set(), unknown: 0 };
+      stockData = null; stockDates = []; exportDatesLoaded = false;
+      lastCode = ''; lastScanTs = 0; scanLocked = false; isPaused = false;
+
       document.getElementById('scanScreen').classList.remove('active');
       document.getElementById('stockScreen').classList.remove('active');
+      document.getElementById('exportScreen').classList.remove('active');
       document.getElementById('loginScreen').classList.add('active');
       document.getElementById('tabBar').style.display = 'none';
       document.getElementById('step1').style.display = 'block';
       document.getElementById('step2').classList.remove('visible');
+      document.getElementById('inputPin').value = '';
       const btn = document.getElementById('btnValidate');
-      btn.innerHTML = 'Vérifier le code'; btn.disabled = false;
+      btn.innerHTML = 'Se connecter'; btn.disabled = false;
     }
 
     function showLoginError(msg) {
@@ -1040,7 +1132,7 @@
         document.body.appendChild(container);
       }
       const toast = document.createElement('div');
-      const bg = type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#666';
+      const bg = type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : type === 'warn' ? '#e8a317' : '#666';
       toast.style.cssText = `background:${bg};color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;transition:opacity .3s;pointer-events:auto;max-width:90vw;text-align:center;`;
       toast.textContent = msg;
       container.appendChild(toast);
@@ -1048,13 +1140,13 @@
       setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 4000);
     }
 
-    // ── Data loading ──
+    // â”€â”€ Data loading â”€â”€
     async function loadZones() {
       try {
         const d = await apiCall('getZones');
         if (d.zones) ZONES = d.zones;
       } catch {
-        ZONES = [{nom:'Vitrine',emoji:'🪟'},{nom:'Réserve',emoji:'📦'},{nom:'Coiffure',emoji:'💇'},{nom:'Manucure',emoji:'💅'},{nom:'Accueil',emoji:'🛋️'}];
+        ZONES = [{nom:'Vitrine',emoji:'ðŸªŸ'},{nom:'RÃ©serve',emoji:'ðŸ“¦'},{nom:'Coiffure',emoji:'ðŸ’‡'},{nom:'Manucure',emoji:'ðŸ’…'},{nom:'Accueil',emoji:'ðŸ›‹ï¸'}];
       }
     }
     function populateZoneSelect() {
@@ -1079,11 +1171,20 @@
     async function loadCatalogue() {
       try {
         const d = await apiCall('getCatalogue');
-        if (d.produits) d.produits.forEach(p => { catalogue[p.ean] = p; });
-      } catch {}
+        if (d.produits) {
+          d.produits.forEach(p => { catalogue[p.ean] = p; });
+          // Populate category suggestions for the add-product modal
+          const cats = [...new Set(d.produits.map(p => p.categorie).filter(Boolean))].sort();
+          const dl = document.getElementById('catSuggestions');
+          if (dl) dl.innerHTML = cats.map(c => '<option value="' + esc(c) + '">').join('');
+        }
+      } catch (err) {
+        console.error('loadCatalogue error:', err);
+        showToast('\u26a0\ufe0f Catalogue non charg\u00e9 \u2014 v\u00e9rifiez la connexion', 'warn');
+      }
     }
 
-    // ── Controls ──
+    // â”€â”€ Controls â”€â”€
     function adjustQty(delta) {
       currentQty = Math.max(1, Math.min(99, currentQty + delta));
       document.getElementById('qtyDisplay').textContent = currentQty;
@@ -1098,16 +1199,20 @@
         label.textContent = 'Ouvert';
       } else {
         el.classList.remove('ouvert');
-        label.textContent = 'Fermé';
+        label.textContent = 'FermÃ©';
       }
     }
 
-    // ── Camera ──
+    // â”€â”€ Camera â”€â”€
     function initCamera() {
       scanner = new Html5Qrcode("reader");
+      // Responsive qrbox — 76% of viewport width, bar-shaped
+      const vw = Math.min(document.getElementById('reader').clientWidth || 360, 500);
+      const qrW = Math.round(vw * 0.76);
+      const qrH = Math.round(qrW * 0.35);
       scanner.start(
         { facingMode: "environment" },
-        { fps: 12, qrbox: { width: 260, height: 100 },
+        { fps: 10, qrbox: { width: qrW, height: qrH },
           formatsToSupport: [
             Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.EAN_8,
             Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.UPC_E,
@@ -1121,11 +1226,11 @@
     function togglePause() {
       if (!scanner) return;
       const btn = document.getElementById('btnPause');
-      if (isPaused) { scanner.resume(); isPaused = false; scannerActive = true; btn.textContent = '⏸ Pause'; }
-      else { scanner.pause(true); isPaused = true; scannerActive = false; btn.textContent = '▶️ Reprendre'; }
+      if (isPaused) { scanner.resume(); isPaused = false; scannerActive = true; btn.textContent = 'â¸ Pause'; }
+      else { scanner.pause(true); isPaused = true; scannerActive = false; btn.textContent = 'â–¶ï¸ Reprendre'; }
     }
 
-    // ── Scan ──
+    // â”€â”€ Scan â”€â”€
     function onScanDetected(code) {
       const now = Date.now();
       if (scanLocked) return; // animation en cours
@@ -1140,6 +1245,13 @@
       if (scanLocked) return;
       const inp = document.getElementById('manualInput');
       const code = inp.value.trim(); if (!code) return;
+      // Validate: only digits, min 8 chars (EAN-8), max 14 (ITF-14)
+      if (!/^\d{8,14}$/.test(code)) {
+        showToast('⚠️ EAN invalide — 8 à 14 chiffres attendus', 'warn');
+        inp.style.borderColor = 'var(--coral)';
+        setTimeout(() => inp.style.borderColor = '', 1500);
+        return;
+      }
       inp.value = '';
       scanLocked = true;
       setTimeout(() => { scanLocked = false; }, SCAN_LOCK_MS);
@@ -1153,13 +1265,13 @@
       const id = ++scanIdCounter;
 
       if (navigator.vibrate) navigator.vibrate(isKnown ? [80] : [80, 50, 80]);
-      if (isKnown) { beepSuccess(); flashScan('success'); showBanner('✓ ' + product.produit, 'success'); }
+      if (isKnown) { beepSuccess(); flashScan('success'); showBanner('âœ“ ' + product.produit, 'success'); }
       else { beepWarning(); flashScan('warning'); showBanner('? EAN ' + ean, 'warning'); }
 
-      // Freeze caméra 1.5s — feedback visuel "capté", aligné sur le lock
+      // Freeze camÃ©ra 1.5s â€” feedback visuel "captÃ©", alignÃ© sur le lock
       if (scanner && scannerActive) {
         scanner.pause(true);
-        setTimeout(() => { if (!isPaused && !document.getElementById('unknownModal').classList.contains('open')) { scanner.resume(); } }, 1500);
+        setTimeout(() => { if (!isPaused && !document.getElementById('unknownModal').classList.contains('open')) { scanner.resume(); } }, 2200);
       }
 
       const scanData = {
@@ -1181,13 +1293,13 @@
       renderHistory();
 
       currentQty = 1; document.getElementById('qtyDisplay').textContent = 1;
-      // Reset état to Fermé
-      if (currentEtat === 'O') { currentEtat = 'F'; document.getElementById('etatToggle').classList.remove('ouvert'); document.getElementById('etatLabel').textContent = 'Fermé'; }
+      // Reset Ã©tat to FermÃ©
+      // État Ouvert/Fermé is now sticky — user toggles it intentionally
       sendScan(scanData);
       if (!isKnown) setTimeout(() => showUnknownModal(ean), 700);
     }
 
-    // ── Undo ──
+    // â”€â”€ Undo â”€â”€
     function undoScan(id) {
       const entry = scanHistory.find(h => h.id === id);
       if (!entry || entry.cancelled) return;
@@ -1203,12 +1315,12 @@
       // Negative qty to cancel in the sheet
       sendScan({
         action: 'scan', token: TOKEN, ean: entry.ean,
-        produit: entry.produit + ' [ANNULÉ]', marque: entry.marque,
+        produit: entry.produit + ' [ANNULÃ‰]', marque: entry.marque,
         quantite: -entry.quantite, zone: entry.zone, etat: entry.etat || 'F', scannePar: userName
       });
     }
 
-    // ── Network: POST avec réponse lisible (plus de no-cors) ──
+    // â”€â”€ Network: POST avec rÃ©ponse lisible (plus de no-cors) â”€â”€
     async function sendScan(data) {
       if (!navigator.onLine) { offlineQueue.push(data); localStorage.setItem('inv_queue', JSON.stringify(offlineQueue)); return; }
       try {
@@ -1218,10 +1330,10 @@
         });
         const out = await resp.json();
         if (!out.success) {
-          console.warn('Scan rejeté:', out.error);
-          // Si licence expirée, alerter
-          if (out.error && (out.error.includes('expir') || out.error.includes('PIN') || out.error.includes('désactiv'))) {
-            showToast('⚠️ ' + out.error, 'error');
+          console.warn('Scan rejetÃ©:', out.error);
+          // Si licence expirÃ©e, alerter
+          if (out.error && (out.error.includes('expir') || out.error.includes('PIN') || out.error.includes('dÃ©sactiv'))) {
+            showToast('âš ï¸ ' + out.error, 'error');
           }
         }
       } catch { offlineQueue.push(data); localStorage.setItem('inv_queue', JSON.stringify(offlineQueue)); }
@@ -1247,50 +1359,100 @@
 
     // ── Unknown modal ──
     let capturedPhotoBase64 = null;
+    let viewfinderStream = null;
+    let savingProduct = false;
 
-    function capturePhoto() {
-      // Grab the video element from html5-qrcode
-      const video = document.querySelector('#reader video');
-      if (!video) { return; }
+    // ── Photo viewfinder (live camera in modal) ──
+    async function openViewfinder() {
+      const vf = document.getElementById('photoViewfinder');
+      const video = document.getElementById('photoVideo');
+      vf.classList.add('active');
+      try {
+        viewfinderStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } }
+        });
+        video.srcObject = viewfinderStream;
+      } catch(e) {
+        console.error('Viewfinder camera error:', e);
+        // Fallback: grab from scanner video stream
+        const scannerVideo = document.querySelector('#reader video');
+        if (scannerVideo && scannerVideo.srcObject) {
+          video.srcObject = scannerVideo.srcObject;
+          viewfinderStream = null;
+        } else {
+          vf.classList.remove('active');
+          showToast('Impossible d\'ouvrir la cam\u00e9ra', 'error');
+        }
+      }
+    }
+
+    function captureFromViewfinder() {
+      const video = document.getElementById('photoVideo');
+      if (!video || !video.videoWidth) return;
 
       const canvas = document.createElement('canvas');
-      // Use reasonable size for product photos
       canvas.width = Math.min(video.videoWidth, 640);
       canvas.height = Math.round(canvas.width * (video.videoHeight / video.videoWidth));
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // JPEG at 70% quality — good enough for product ID, small file
       const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-      capturedPhotoBase64 = dataUrl.split(',')[1]; // strip prefix
+      capturedPhotoBase64 = dataUrl.split(',')[1];
 
-      // Update preview
       const preview = document.getElementById('photoPreview');
       preview.innerHTML = `<img src="${dataUrl}" alt="photo">`;
       preview.classList.add('has-photo');
-
       const btn = document.getElementById('photoBtn');
-      btn.textContent = '✅ Photo prise — retoucher ?';
+      btn.textContent = '\u2705 Photo prise \u2014 retoucher ?';
       btn.classList.add('taken');
 
+      closeViewfinder();
       beepSuccess();
     }
 
+    function closeViewfinder() {
+      const vf = document.getElementById('photoViewfinder');
+      vf.classList.remove('active');
+      if (viewfinderStream) {
+        viewfinderStream.getTracks().forEach(t => t.stop());
+        viewfinderStream = null;
+      }
+      const vid = document.getElementById('photoVideo');
+      if (vid) vid.srcObject = null;
+    }
+
+    function capturePhoto() { openViewfinder(); }
+
     function showUnknownModal(ean) {
+      // ── Anti-duplication: check if already in catalogue ──
+      if (catalogue[ean]) {
+        showToast('Ce produit est d\u00e9j\u00e0 dans le catalogue', 'warn');
+        return;
+      }
+
       capturedPhotoBase64 = null;
+      savingProduct = false;
       document.getElementById('modalEan').value = ean;
       document.getElementById('modalProduct').value = '';
       document.getElementById('modalBrand').value = '';
+      document.getElementById('modalCategorie').value = '';
+      document.getElementById('modalPrixAchat').value = '';
+      document.getElementById('modalPrixVente').value = '';
       // Reset type pills (default: Vente)
       document.querySelectorAll('#modalTypePills .type-pill').forEach(p => p.classList.remove('active'));
       document.querySelector('#modalTypePills .type-pill[data-type="V"]').classList.add('active');
-      // Reset photo UI
+      // Reset photo UI + viewfinder
+      closeViewfinder();
       const preview = document.getElementById('photoPreview');
-      preview.innerHTML = '📷';
+      preview.innerHTML = '\U0001f4f7';
       preview.classList.remove('has-photo');
       const btn = document.getElementById('photoBtn');
-      btn.textContent = '📸 Prendre une photo';
+      btn.textContent = '\U0001f4f8 Prendre une photo';
       btn.classList.remove('taken');
+      // Reset save button
+      const saveBtn = document.getElementById('btnSaveProduct');
+      saveBtn.classList.remove('loading');
+      saveBtn.disabled = false;
 
       document.getElementById('unknownModal').classList.add('open');
 
@@ -1305,29 +1467,69 @@
       el.classList.add('active');
     }
     function closeModal() {
+      closeViewfinder();
       document.getElementById('unknownModal').classList.remove('open');
       document.getElementById('modalPrixAchat').value = '';
       document.getElementById('modalPrixVente').value = '';
       capturedPhotoBase64 = null;
+      savingProduct = false;
+      // Reset save button state
+      const saveBtn = document.getElementById('btnSaveProduct');
+      if (saveBtn) { saveBtn.classList.remove('loading'); saveBtn.disabled = false; }
       if (scanner && !isPaused) { scanner.resume(); scannerActive = true; }
     }
     async function saveNewProduct() {
+      // ── Anti-double-click guard ──
+      if (savingProduct) return;
+
       const ean = document.getElementById('modalEan').value;
       const produit = document.getElementById('modalProduct').value.trim();
       const marque = document.getElementById('modalBrand').value.trim();
+      const categorie = (document.getElementById('modalCategorie') || {}).value?.trim() || '';
       const prixAchat = document.getElementById('modalPrixAchat').value || '';
       const prixVente = document.getElementById('modalPrixVente').value || '';
       const typeEl = document.querySelector('#modalTypePills .type-pill.active');
       const type = typeEl ? typeEl.dataset.type : 'CV';
+
       if (!produit) {
         document.getElementById('modalProduct').style.borderColor = 'var(--coral)';
         setTimeout(() => document.getElementById('modalProduct').style.borderColor = '', 1500);
         return;
       }
-      catalogue[ean] = { ean, produit, marque, categorie:'', prixAchat, prixVente, type };
+
+      // ── Anti-duplication: check local catalogue ──
+      if (catalogue[ean]) {
+        showToast('\u26a0\ufe0f Ce produit existe d\u00e9j\u00e0 !', 'warn');
+        closeModal();
+        return;
+      }
+
+      // ── Loading state ──
+      savingProduct = true;
+      const saveBtn = document.getElementById('btnSaveProduct');
+      saveBtn.classList.add('loading');
+      saveBtn.disabled = true;
+
+      // Add to local catalogue immediately (optimistic)
+      catalogue[ean] = { ean, produit, marque, categorie, prixAchat, prixVente, type };
+
       try {
-        await apiCall('ajouterProduit', { ean, produit, marque, categorie:'', prixAchat, prixVente, type });
-      } catch {}
+        const result = await apiCall('ajouterProduit', { ean, produit, marque, categorie, prixAchat, prixVente, type });
+
+        // Backend duplicate check
+        if (result.duplicate) {
+          showToast('\u26a0\ufe0f Ce produit existait d\u00e9j\u00e0 dans le catalogue', 'warn');
+        }
+      } catch(e) {
+        // ── Rollback: remove from local catalogue if API failed ──
+        delete catalogue[ean];
+        console.error('Erreur ajout produit:', e);
+        showToast('\u274c Erreur serveur \u2014 produit non enregistr\u00e9', 'error');
+        savingProduct = false;
+        saveBtn.classList.remove('loading');
+        saveBtn.disabled = false;
+        return;
+      }
 
       // Upload photo if captured
       if (capturedPhotoBase64) {
@@ -1342,11 +1544,14 @@
         stats.unknown = Math.max(0, stats.unknown - 1);
         refreshStats(); renderHistory();
       }
-      beepSuccess(); flashScan('success'); showBanner('✓ ' + produit + ' ajouté', 'success');
+
+      // ── Success feedback + close ──
+      beepSuccess(); flashScan('success');
+      showToast('\u2705 ' + produit + ' ajout\u00e9 au catalogue', 'success');
       closeModal();
     }
 
-    // ── UI ──
+    // â”€â”€ UI â”€â”€
     function refreshStats() {
       document.getElementById('statScans').textContent = stats.scans;
       document.getElementById('statProducts').textContent = stats.products.size;
@@ -1356,25 +1561,25 @@
     function renderHistory() {
       const c = document.getElementById('historyList');
       if (!scanHistory.length) {
-        c.innerHTML = '<div class="empty-state"><div class="empty-icon">📷</div><p>Scannez un code-barres pour commencer.</p></div>';
+        c.innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸ“·</div><p>Scannez un code-barres pour commencer.</p></div>';
         return;
       }
       c.innerHTML = scanHistory.slice(0, 60).map(h => `
         <div class="scan-card ${h.cancelled ? 'cancelled' : ''}">
           <div class="qty-tag ${h.known ? 'known' : 'unknown'}">${parseInt(h.quantite)||0}</div>
           <div class="details">
-            <div class="product-name ${h.known ? '' : 'is-unknown'}">${esc(h.produit)}${h.marque ? ' · '+esc(h.marque) : ''}${h.etat === 'O' ? ' <span class="etat-badge ouvert">ouvert</span>' : ''}</div>
-            <div class="meta">${esc(h.ean)} · ${esc(h.zone)}</div>
+            <div class="product-name ${h.known ? '' : 'is-unknown'}">${esc(h.produit)}${h.marque ? ' Â· '+esc(h.marque) : ''}${h.etat === 'O' ? ' <span class="etat-badge ouvert">ouvert</span>' : ''}</div>
+            <div class="meta">${esc(h.ean)} Â· ${esc(h.zone)}</div>
           </div>
           <div class="card-right">
             <div class="timestamp">${esc(h.time)}</div>
-            ${h.cancelled ? '' : '<button class="undo-btn" onclick="undoScan('+parseInt(h.id)+')" title="Annuler ce scan">↩</button>'}
+            ${h.cancelled ? '' : '<button class="undo-btn" onclick="undoScan('+parseInt(h.id)+')" title="Annuler ce scan">â†©</button>'}
           </div>
         </div>
       `).join('');
     }
 
-    // ═══════════ TAB NAVIGATION ═══════════
+    // â•â•â•â•â•â•â•â•â•â•â• TAB NAVIGATION â•â•â•â•â•â•â•â•â•â•â•
     let currentTab = 'scanner';
     let stockData = null;
     let stockDates = [];
@@ -1414,7 +1619,7 @@
         buildStockZonePills();
         // First load: fetch dates list
         if (!stockDates.length) loadStockData();
-        else if (!document.getElementById('stockDate').value) showPickDatePrompt();
+        else if (!document.getElementById('stockDateFrom').value) showPickDatePrompt();
       } else if (tab === 'export') {
         document.getElementById('exportScreen').classList.add('active');
         document.getElementById('tabExport').classList.add('active');
@@ -1422,13 +1627,13 @@
       }
     }
 
-    // ═══════════ STOCK VIEW ═══════════
+    // â•â•â•â•â•â•â•â•â•â•â• STOCK VIEW â•â•â•â•â•â•â•â•â•â•â•
 
     function buildStockZonePills() {
       const c = document.getElementById('stockZonePills');
       const allBtn = `<button class="stock-filter-btn ${stockZoneFilter === '' ? 'active' : ''}" onclick="setStockZone('')">Toutes zones</button>`;
       const zoneBtns = ZONES.map(z =>
-        `<button class="stock-filter-btn ${z.nom === stockZoneFilter ? 'active' : ''}" onclick="setStockZone(this.dataset.z)" data-z="${esc(z.nom)}">${esc(z.emoji || '📍')} ${esc(z.nom)}</button>`
+        `<button class="stock-filter-btn ${z.nom === stockZoneFilter ? 'active' : ''}" onclick="setStockZone(this.dataset.z)" data-z="${esc(z.nom)}">${esc(z.emoji || 'ðŸ“')} ${esc(z.nom)}</button>`
       ).join('');
       c.innerHTML = allBtn + zoneBtns;
     }
@@ -1436,7 +1641,7 @@
     function buildStockCatPills() {
       const c = document.getElementById('stockCatPills');
       if (!stockCategories.length) { c.innerHTML = ''; return; }
-      const allBtn = `<button class="stock-filter-btn ${stockCatFilter === '' ? 'active' : ''}" onclick="setStockCat('')">Toutes catégories</button>`;
+      const allBtn = `<button class="stock-filter-btn ${stockCatFilter === '' ? 'active' : ''}" onclick="setStockCat('')">Toutes catÃ©gories</button>`;
       const catBtns = stockCategories.map(cat =>
         `<button class="stock-filter-btn ${cat === stockCatFilter ? 'active' : ''}" onclick="setStockCat(this.dataset.v)" data-v="${esc(cat)}">${esc(cat)}</button>`
       ).join('');
@@ -1463,7 +1668,7 @@
     function buildStockTypePills() {
       const c = document.getElementById('stockTypePills');
       if (!stockData) { c.innerHTML = ''; return; }
-      const typeMap = { '': 'Tous types', V: '🏷️ Vente', C: '🧴 Conso', CV: '↔️ Les deux' };
+      const typeMap = { '': 'Tous types', V: 'ðŸ·ï¸ Vente', C: 'ðŸ§´ Conso', CV: 'â†”ï¸ Les deux' };
       const types = [...new Set(stockData.map(p => p.type || 'CV'))].sort();
       if (types.length <= 1) { c.innerHTML = ''; return; }
       let html = `<button class="stock-filter-btn ${stockTypeFilter === '' ? 'active' : ''}" onclick="setStockType('')">Tous types</button>`;
@@ -1480,25 +1685,41 @@
       list.innerHTML = `
         <div class="stock-empty">
           <div class="empty-icon">📅</div>
-          <p>Sélectionnez une date d'inventaire<br>pour consulter le stock.</p>
+          <p>Sélectionnez une date d\u2019inventaire<br>pour consulter le stock.</p>
           ${stockDates.length ? '<p style="margin-top:8px;font-size:12px;color:var(--text-dim);">' + stockDates.length + ' inventaire(s) disponible(s)</p>' : '<p style="margin-top:8px;font-size:12px;color:var(--amber);">Aucun inventaire enregistré.</p>'}
         </div>`;
     }
 
-    function populateDateSelect(dates) {
-      const sel = document.getElementById('stockDate');
-      const currentVal = sel.value;
-      sel.innerHTML = '<option value="">📅 Date d\'inventaire…</option>';
-      dates.forEach(d => {
-        const opt = document.createElement('option');
-        opt.value = d;
-        opt.textContent = '📋 ' + d;
-        sel.appendChild(opt);
+    function populateDateSelects(dates) {
+      ['stockDateFrom','stockDateTo'].forEach(id => {
+        const sel = document.getElementById(id);
+        const currentVal = sel.value;
+        const isTo = id.endsWith('To');
+        sel.innerHTML = isTo
+          ? '<option value="">📅 Au\u2026 (m\u00eame jour)</option>'
+          : '<option value="">📅 Du\u2026</option>';
+        dates.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          sel.appendChild(opt);
+        });
+        if (currentVal && dates.includes(currentVal)) sel.value = currentVal;
       });
-      // Restore selection or auto-select most recent
-      if (currentVal && dates.includes(currentVal)) {
-        sel.value = currentVal;
-      }
+    }
+
+    function onStockDateChange() {
+      const from = document.getElementById('stockDateFrom').value;
+      if (!from) { showPickDatePrompt(); return; }
+      loadStockData();
+    }
+
+    function getStockDateParam() {
+      const from = document.getElementById('stockDateFrom').value || '';
+      const to = document.getElementById('stockDateTo').value || '';
+      if (!from) return '';
+      if (to && to !== from) return from + '|' + to;
+      return from;
     }
 
     async function loadStockData() {
@@ -1507,11 +1728,11 @@
       document.getElementById('stockSummary').style.display = 'none';
 
       try {
-        const dateParam = document.getElementById('stockDate').value || '';
+        const dateParam = getStockDateParam();
         const data = await apiCall('getStockView', { date: dateParam });
 
         // Store dates + categories
-        if (data.dates) { stockDates = data.dates; populateDateSelect(data.dates); }
+        if (data.dates) { stockDates = data.dates; populateDateSelects(data.dates); }
         if (data.categories) { stockCategories = data.categories; buildStockCatPills(); }
 
         // If no date selected, prompt to pick one
@@ -1522,9 +1743,10 @@
         buildStockTypePills();
         filterStock();
       } catch (err) {
-        list.innerHTML = `<div class="stock-empty"><div class="empty-icon">⚠️</div><p>${esc(err.message || 'Erreur de connexion au serveur.')}</p></div>`;
+        list.innerHTML = '<div class="stock-empty"><div class="empty-icon">⚠️</div><p>' + esc(err.message || 'Erreur de connexion au serveur.') + '</p></div>';
       }
     }
+
 
     function filterStock() {
       if (!stockData) return;
@@ -1569,7 +1791,7 @@
       const list = document.getElementById('stockList');
 
       if (!items.length) {
-        list.innerHTML = '<div class="stock-empty"><div class="empty-icon">📭</div><p>Aucun produit trouvé.</p></div>';
+        list.innerHTML = '<div class="stock-empty"><div class="empty-icon">🔭</div><p>Aucun produit trouvé.</p></div>';
         updateStockSummary([]);
         return;
       }
@@ -1577,59 +1799,76 @@
       document.getElementById('stockSummary').style.display = 'flex';
       updateStockSummary(items);
 
-      // Sort: écart négatifs d'abord (manques), puis alphabétique
+      // Sort: scanned first, then écart négatifs (manques), then alphabétique
       items.sort((a, b) => {
+        if (a.scanned !== b.scanned) return a.scanned ? -1 : 1;
         if (a.ecart !== b.ecart) return a.ecart - b.ecart;
         return (a.produit || '').localeCompare(b.produit || '');
       });
 
       list.innerHTML = items.map(p => {
+        const isNotScanned = p.scanned === false;
+
+        // Type badge (shared)
+        const typeLabels = { V: 'Vente', C: 'Conso', CV: 'V+C' };
+        const pType = ['V','C','CV'].includes(p.type) ? p.type : 'CV';
+        const typeBadge = '<span class="stock-type-badge type-' + pType + '">' + (typeLabels[pType] || esc(p.type)) + '</span>';
+
+        // Non-scanned products: distinct UI
+        if (isNotScanned) {
+          return '<div class="stock-item" style="opacity:0.6;">' +
+            '<div class="stock-qty-block"><div class="stock-qty-total" style="color:var(--text-dim);font-size:13px;">—</div></div>' +
+            '<div class="stock-item-details">' +
+              '<div class="stock-item-name">' + esc(p.produit || 'INCONNU') + (p.marque ? ' · ' + esc(p.marque) : '') + typeBadge + '</div>' +
+              '<div class="stock-item-meta">' + esc(p.ean) + (p.categorie ? ' · ' + esc(p.categorie) : '') + (p.theorique > 0 ? ' · Théo: ' + p.theorique : '') + '</div>' +
+              '<div style="font-size:10px;color:var(--amber);font-weight:700;margin-top:1px;">⚠ Non scanné — potentiellement en stock</div>' +
+            '</div>' +
+            '<div class="stock-item-right" style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">' +
+              '<div class="stock-item-ecart" style="color:var(--text-dim);font-size:10px;">non scanné</div>' +
+              '<button onclick="markStockZero(\'' + esc(p.ean) + '\',\'' + esc(p.produit) + '\',\'' + esc(p.marque||'') + '\')" ' +
+                'style="padding:4px 10px;border-radius:6px;border:1px solid var(--coral);background:var(--coral-dim);color:var(--coral);font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;pointer-events:auto;">' +
+                'Stock = 0</button>' +
+            '</div>' +
+          '</div>';
+        }
+
         const ecartClass = p.ecart < 0 ? 'neg' : p.ecart > 0 ? 'pos' : 'zero';
         const ecartText = p.ecart > 0 ? '+' + p.ecart : p.ecart === 0 ? '=' : p.ecart;
         const splitHtml = (p.fermes > 0 || p.ouverts > 0)
-          ? `<span class="f">${parseInt(p.fermes)||0}F</span> <span class="o">${parseInt(p.ouverts)||0}O</span>`
+          ? '<span class="f">' + (parseInt(p.fermes)||0) + 'F</span> <span class="o">' + (parseInt(p.ouverts)||0) + 'O</span>'
           : '';
 
-        // Écart indicator
         let bottomLine = '';
-        if (p.ecart < 0) bottomLine = `<div style="font-size:10px;color:var(--coral);font-weight:700;margin-top:1px;">▼ ${Math.abs(p.ecart)} de moins · perte ${(p.perteSèche||0).toFixed(0)}€</div>`;
-        else if (p.ecart > 0) bottomLine = `<div style="font-size:10px;color:var(--mint);font-weight:700;margin-top:1px;">▲ ${p.ecart} de plus que prévu</div>`;
+        if (p.ecart < 0) bottomLine = '<div style="font-size:10px;color:var(--coral);font-weight:700;margin-top:1px;">▼ ' + Math.abs(p.ecart) + ' de moins · perte ' + (p.perteSeche||p.perteSèche||0).toFixed(0) + '€</div>';
+        else if (p.ecart > 0) bottomLine = '<div style="font-size:10px;color:var(--mint);font-weight:700;margin-top:1px;">▲ ' + p.ecart + ' de plus que prévu</div>';
 
-        // Type badge
-        const typeLabels = { V: 'Vente', C: 'Conso', CV: 'V+C' };
-        const pType = ['V','C','CV'].includes(p.type) ? p.type : 'CV';
-        const typeBadge = `<span class="stock-type-badge type-${pType}">${typeLabels[pType] || esc(p.type)}</span>`;
-
-        return `
-          <div class="stock-item">
-            <div class="stock-qty-block">
-              <div class="stock-qty-total">${parseInt(p.total)||0}</div>
-              <div class="stock-qty-split">${splitHtml}</div>
-            </div>
-            <div class="stock-item-details">
-              <div class="stock-item-name">${esc(p.produit || 'INCONNU')}${p.marque ? ' · ' + esc(p.marque) : ''}${typeBadge}</div>
-              <div class="stock-item-meta">${esc(p.ean)}${p.categorie ? ' · ' + esc(p.categorie) : ''}${p.theorique > 0 ? ' · Théo: ' + p.theorique : ''}</div>
-              ${bottomLine}
-            </div>
-            <div class="stock-item-right">
-              <div class="stock-item-price">${p.prixVente ? (p.valeurVente||0).toFixed(0) + '€' : ''}</div>
-              <div class="stock-item-ecart ${ecartClass}">${p.theorique > 0 ? ecartText : ''}</div>
-            </div>
-          </div>
-        `;
+        return '<div class="stock-item">' +
+          '<div class="stock-qty-block"><div class="stock-qty-total">' + (parseInt(p.total)||0) + '</div><div class="stock-qty-split">' + splitHtml + '</div></div>' +
+          '<div class="stock-item-details">' +
+            '<div class="stock-item-name">' + esc(p.produit || 'INCONNU') + (p.marque ? ' · ' + esc(p.marque) : '') + typeBadge + '</div>' +
+            '<div class="stock-item-meta">' + esc(p.ean) + (p.categorie ? ' · ' + esc(p.categorie) : '') + (p.theorique > 0 ? ' · Théo: ' + p.theorique : '') + '</div>' +
+            bottomLine +
+          '</div>' +
+          '<div class="stock-item-right">' +
+            '<div class="stock-item-price">' + (p.prixVente ? (p.valeurVente||0).toFixed(0) + '€' : '') + '</div>' +
+            '<div class="stock-item-ecart ' + ecartClass + '">' + (p.theorique > 0 ? ecartText : '') + '</div>' +
+          '</div>' +
+        '</div>';
       }).join('');
     }
 
     function updateStockSummary(items) {
-      let refs = items.length, fermes = 0, ouverts = 0, cout = 0, vente = 0, perte = 0;
-      items.forEach(p => {
+      const scannedItems = items.filter(p => p.scanned !== false);
+      const nonScannedCount = items.length - scannedItems.length;
+      let refs = scannedItems.length, fermes = 0, ouverts = 0, cout = 0, vente = 0, perte = 0;
+      scannedItems.forEach(p => {
         fermes += p.fermes;
         ouverts += p.ouverts;
         cout += p.coutStock || 0;
         vente += p.valeurVente || 0;
-        perte += p.perteSèche || 0;
+        perte += p.perteSèche || p.perteSeche || 0;
       });
-      document.getElementById('stockTotalRefs').textContent = refs;
+      document.getElementById('stockTotalRefs').textContent = refs + (nonScannedCount > 0 ? ' (+' + nonScannedCount + ' non scannés)' : '');
       document.getElementById('stockTotalFermes').textContent = fermes;
       document.getElementById('stockTotalOuverts').textContent = ouverts;
       document.getElementById('stockTotalCout').textContent = cout > 0 ? cout.toFixed(0) : '—';
@@ -1637,7 +1876,33 @@
       document.getElementById('stockTotalPerte').textContent = perte > 0 ? perte.toFixed(0) : '—';
     }
 
-    // ═══════════ EXPORT SALONKEE ═══════════
+    async function markStockZero(ean, produit, marque) {
+      if (!confirm('Confirmer stock = 0 pour ' + produit + ' ?')) return;
+      try {
+        // Send a scan with qty=0 to record it as "scanned, zero in stock"
+        await apiCall('scan', {
+          ean, produit, marque, quantite: 0,
+          zone: currentZone || 'Inventaire', etat: 'F', scannePar: userName || 'Stock view'
+        });
+        showToast('✅ ' + produit + ' marqué stock = 0', 'success');
+        // Update local data immediately
+        if (stockData) {
+          const item = stockData.find(p => p.ean === ean);
+          if (item) {
+            item.scanned = true;
+            item.total = 0; item.fermes = 0; item.ouverts = 0;
+            item.ecart = -item.theorique;
+            item.perteSèche = item.theorique > 0 ? Math.round(item.theorique * item.prixAchat * 100) / 100 : 0;
+          }
+          filterStock();
+        }
+      } catch(e) {
+        showToast('❌ Erreur: ' + (e.message || 'serveur'), 'error');
+      }
+    }
+
+
+    // â•â•â•â•â•â•â•â•â•â•â• EXPORT SALONKEE â•â•â•â•â•â•â•â•â•â•â•
 
     let exportItems = [];
     let exportAllStock = [];
@@ -1655,24 +1920,37 @@
       try {
         const data = await apiCall('getStockView', { date: '' });
         if (data.dates && data.dates.length) {
-          const sel = document.getElementById('exportDate');
-          sel.innerHTML = '<option value="">📅 Date d\'inventaire…</option>';
           const sorted = [...data.dates].sort((a, b) => {
             const pa = a.split('/'), pb = b.split('/');
             return (pb[2]+pb[1]+pb[0]).localeCompare(pa[2]+pa[1]+pa[0]);
           });
-          sorted.forEach(d => {
-            const opt = document.createElement('option');
-            opt.value = d; opt.textContent = d;
-            sel.appendChild(opt);
+          ['exportDateFrom','exportDateTo'].forEach(id => {
+            const sel = document.getElementById(id);
+            const isTo = id.endsWith('To');
+            sel.innerHTML = isTo
+              ? '<option value="">📅 Au\u2026 (m\u00eame jour)</option>'
+              : '<option value="">📅 Du\u2026</option>';
+            sorted.forEach(d => {
+              const opt = document.createElement('option');
+              opt.value = d; opt.textContent = d;
+              sel.appendChild(opt);
+            });
           });
           exportDatesLoaded = true;
         }
       } catch (err) { console.error('Export dates error:', err); }
     }
 
+    function getExportDateParam() {
+      const from = document.getElementById('exportDateFrom').value || '';
+      const to = document.getElementById('exportDateTo').value || '';
+      if (!from) return '';
+      if (to && to !== from) return from + '|' + to;
+      return from;
+    }
+
     async function loadExportData() {
-      const date = document.getElementById('exportDate').value;
+      const date = getExportDateParam();
       const carousel = document.getElementById('exportCarousel');
       const ean13Only = document.getElementById('exportEan13').checked;
       stopAutoAdvance();
@@ -1683,11 +1961,12 @@
         document.getElementById('exportAutoRow').style.display = 'none';
         document.getElementById('exportCounter').textContent = '';
         document.getElementById('exportIgnored').textContent = '';
-        carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">📤</div><p>Sélectionnez une date d'inventaire<br>pour générer les fiches Salonkee.</p></div>`;
+        carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">📤</div><p>Sélectionnez une date pour générer les fiches Salonkee.</p></div>';
         return;
       }
 
-      carousel.innerHTML = '<div class="stock-loading"><div class="spinner"></div><p style="margin-top:12px;">Chargement…</p></div>';
+
+      carousel.innerHTML = '<div class="stock-loading"><div class="spinner"></div><p style="margin-top:12px;">Chargementâ€¦</p></div>';
 
       let fromCache = false;
       const CACHE_VER = 'v1';
@@ -1699,7 +1978,7 @@
         try {
           const data = await apiCall('getStockView', { date });
           if (!data.stock || !data.stock.length) {
-            carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">📭</div><p>Aucun produit pour cette date.</p></div>';
+            carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">ðŸ“­</div><p>Aucun produit pour cette date.</p></div>';
             document.getElementById('exportNav').style.display = 'none';
             document.getElementById('exportAutoRow').style.display = 'none';
             document.getElementById('exportCounter').textContent = '';
@@ -1712,7 +1991,7 @@
             .sort((a, b) => (a.produit || '').localeCompare(b.produit || ''));
           exportAllStock._date = date;
 
-          // Cache pour usage hors-ligne + purge anciennes entrées
+          // Cache pour usage hors-ligne + purge anciennes entrÃ©es
           try {
             localStorage.setItem(cacheKey, JSON.stringify(exportAllStock));
             purgeExportCache(CACHE_VER, CACHE_MAX);
@@ -1727,11 +2006,11 @@
               exportAllStock._date = date;
               fromCache = true;
             } else {
-              carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">⚠️</div><p>${esc(err.message || 'Erreur serveur')}<br><small>Aucun cache disponible.</small></p></div>`;
+              carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">âš ï¸</div><p>${esc(err.message || 'Erreur serveur')}<br><small>Aucun cache disponible.</small></p></div>`;
               return;
             }
           } catch {
-            carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">⚠️</div><p>${esc(err.message || 'Erreur serveur')}</p></div>`;
+            carousel.innerHTML = `<div class="export-empty"><div class="empty-icon">âš ï¸</div><p>${esc(err.message || 'Erreur serveur')}</p></div>`;
             return;
           }
         }
@@ -1748,10 +2027,10 @@
 
       // Update ignored counter
       const ignoredEl = document.getElementById('exportIgnored');
-      ignoredEl.textContent = exportIgnoredCount > 0 ? `${exportIgnoredCount} produit${exportIgnoredCount > 1 ? 's' : ''} ignoré${exportIgnoredCount > 1 ? 's' : ''} (EAN ≠ 13)` : '';
+      ignoredEl.textContent = exportIgnoredCount > 0 ? `${exportIgnoredCount} produit${exportIgnoredCount > 1 ? 's' : ''} ignorÃ©${exportIgnoredCount > 1 ? 's' : ''} (EAN â‰  13)` : '';
 
       if (!exportItems.length) {
-        carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">📭</div><p>Aucun produit avec stock positif' + (ean13Only ? ' et EAN-13 valide' : '') + '.</p></div>';
+        carousel.innerHTML = '<div class="export-empty"><div class="empty-icon">ðŸ“­</div><p>Aucun produit avec stock positif' + (ean13Only ? ' et EAN-13 valide' : '') + '.</p></div>';
         document.getElementById('exportNav').style.display = 'none';
         document.getElementById('exportAutoRow').style.display = 'none';
         document.getElementById('exportCounter').textContent = '';
@@ -1780,49 +2059,49 @@
       const theo = hasTh ? parseInt(theoRaw) : 0;
       const delta = hasTh ? total - theo : 0;
 
-      // Delta metric — colorblind-safe: blue=stock, orange=add, violet=remove, grey=equal/noref
+      // Delta metric â€” colorblind-safe: blue=stock, orange=add, violet=remove, grey=equal/noref
       let deltaClass, deltaVal, deltaLbl, instruction;
       if (!hasTh) {
         deltaClass = 'metric-noref';
-        deltaVal = 'Pas de réf.';
+        deltaVal = 'Pas de rÃ©f.';
         deltaLbl = 'Catalogue';
-        instruction = '⚙️ Vérifier le stock théorique dans le catalogue';
+        instruction = 'âš™ï¸ VÃ©rifier le stock thÃ©orique dans le catalogue';
       } else if (delta > 0) {
         deltaClass = 'metric-add';
-        deltaVal = '▲ +' + delta;
-        deltaLbl = 'À ajouter';
-        instruction = '👉 Dans Salonkee, augmenter le stock à ' + total;
+        deltaVal = 'â–² +' + delta;
+        deltaLbl = 'Ã€ ajouter';
+        instruction = 'ðŸ‘‰ Dans Salonkee, augmenter le stock Ã  ' + total;
       } else if (delta < 0) {
         deltaClass = 'metric-remove';
-        deltaVal = '▼ ' + delta;
-        deltaLbl = 'À retirer';
-        instruction = '👉 Dans Salonkee, diminuer le stock à ' + total;
+        deltaVal = 'â–¼ ' + delta;
+        deltaLbl = 'Ã€ retirer';
+        instruction = 'ðŸ‘‰ Dans Salonkee, diminuer le stock Ã  ' + total;
       } else {
         deltaClass = 'metric-equal';
         deltaVal = '= 0';
         deltaLbl = 'Stock conforme';
-        instruction = '✅ Rien à modifier dans Salonkee';
+        instruction = 'âœ… Rien Ã  modifier dans Salonkee';
       }
 
-      // Fermés / ouverts detail line
+      // FermÃ©s / ouverts detail line
       const f = parseInt(p.fermes) || 0;
       const o = parseInt(p.ouverts) || 0;
       const detailParts = [];
-      if (f > 0) detailParts.push(f + ' fermé' + (f > 1 ? 's' : ''));
+      if (f > 0) detailParts.push(f + ' fermÃ©' + (f > 1 ? 's' : ''));
       if (o > 0) detailParts.push(o + ' ouvert' + (o > 1 ? 's' : ''));
-      if (hasTh) detailParts.push('théorique : ' + theo);
-      const detailLine = detailParts.length ? `<div class="export-detail">${esc(detailParts.join(' · '))}</div>` : '';
+      if (hasTh) detailParts.push('thÃ©orique : ' + theo);
+      const detailLine = detailParts.length ? `<div class="export-detail">${esc(detailParts.join(' Â· '))}</div>` : '';
 
       carousel.innerHTML = `
         <div class="export-card">
           <div class="export-page">${exportIndex + 1} / ${exportItems.length}</div>
           <div class="barcode-wrap"><svg id="exportBarcode"></svg></div>
           <div class="export-product">${esc(p.produit || 'INCONNU')}</div>
-          <div class="export-brand">${esc(p.marque || '')}${p.categorie ? ' · ' + esc(p.categorie) : ''} ${typeBadge}</div>
+          <div class="export-brand">${esc(p.marque || '')}${p.categorie ? ' Â· ' + esc(p.categorie) : ''} ${typeBadge}</div>
           <div class="export-metrics">
             <div class="export-metric metric-stock">
               <div class="metric-val">${total}</div>
-              <div class="metric-lbl">Stock compté</div>
+              <div class="metric-lbl">Stock comptÃ©</div>
             </div>
             <div class="export-metric ${deltaClass}">
               <div class="metric-val">${deltaVal}</div>
@@ -1833,7 +2112,7 @@
           <div class="export-instruction">${instruction}</div>
         </div>`;
 
-      // Render barcode — high contrast pour scanner USB
+      // Render barcode â€” high contrast pour scanner USB
       try {
         const format = p.ean.length === 13 ? 'EAN13' : p.ean.length === 8 ? 'EAN8' : 'CODE128';
         JsBarcode('#exportBarcode', p.ean, {
@@ -1847,7 +2126,7 @@
         if (svg) svg.outerHTML = `<div class="export-ean">${esc(p.ean)}</div>`;
       }
 
-      document.getElementById('exportCounter').textContent = `${exportIndex + 1} / ${exportItems.length}${exportFromCache ? ' · ⚡ cache' : ''}`;
+      document.getElementById('exportCounter').textContent = `${exportIndex + 1} / ${exportItems.length}${exportFromCache ? ' Â· âš¡ cache' : ''}`;
       document.getElementById('exportPrev').disabled = (exportIndex === 0);
       document.getElementById('exportNext').disabled = (exportIndex === exportItems.length - 1);
     }
@@ -1877,7 +2156,7 @@
         stopAutoAdvance();
       } else {
         btn.classList.add('active');
-        btn.textContent = '⏸ Arrêter le défilement';
+        btn.textContent = 'â¸ ArrÃªter le dÃ©filement';
         autoAdvanceTimer = setInterval(() => {
           if (exportIndex < exportItems.length - 1) { exportIndex++; renderExportCard(); }
           else stopAutoAdvance();
@@ -1888,13 +2167,13 @@
     function stopAutoAdvance() {
       if (autoAdvanceTimer) { clearInterval(autoAdvanceTimer); autoAdvanceTimer = null; }
       const btn = document.getElementById('exportAutoBtn');
-      if (btn) { btn.classList.remove('active'); btn.textContent = '⏩ Défilement auto (5s)'; }
+      if (btn) { btn.classList.remove('active'); btn.textContent = 'â© DÃ©filement auto (5s)'; }
     }
 
     function purgeExportCache(ver, max) {
       try {
         const prefix = `exportCache:${ver}:`;
-        // Snapshot all keys first — removeItem shifts indices
+        // Snapshot all keys first â€” removeItem shifts indices
         const allKeys = [...Array(localStorage.length)].map((_, i) => localStorage.key(i)).filter(Boolean);
         const currentVer = [];
         const staleVer = [];
@@ -1916,12 +2195,14 @@
     }
   </script>
   <script>
-    // ═══════════ PWA — SERVICE WORKER ═══════════
+    // â•â•â•â•â•â•â•â•â•â•â• PWA â€” SERVICE WORKER â•â•â•â•â•â•â•â•â•â•â•
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
           .then(reg => console.log('SW registered:', reg.scope))
           .catch(err => console.log('SW registration failed:', err));
+        // Show offline pill if app starts without network
+        if (!navigator.onLine) document.getElementById('offlinePill').classList.add('show');
       });
     }
   </script>
