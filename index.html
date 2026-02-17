@@ -2102,6 +2102,32 @@
     function setCatMarque(v) { catMarqueFilter = v; updateCatPillActive('catMarquePills', v); filterCatalogue(); }
     function setCatType(v) { catTypeFilter = v; updateCatPillActive('catTypePills', v); filterCatalogue(); }
 
+    // Normalize any Google Drive photo URL to the most reliable format
+    function drivePhotoUrl(url) {
+      if (!url) return '';
+      // Extract file ID from any Drive URL format
+      let id = '';
+      const m1 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      const m2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (m1) id = m1[1];
+      else if (m2) id = m2[1];
+      else return url; // Not a Drive URL, return as-is
+      return 'https://lh3.googleusercontent.com/d/' + id + '=w400';
+    }
+
+    // Fallback: try alternate Drive URL format on error
+    function catPhotoError(img) {
+      const src = img.src;
+      const m = src.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (m && !img.dataset.retried) {
+        img.dataset.retried = '1';
+        img.src = 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w400';
+      } else {
+        img.style.display = 'none';
+        img.nextElementSibling && (img.nextElementSibling.style.display = 'flex');
+      }
+    }
+
     function updateCatPillActive(containerId, val) {
       const btns = document.getElementById(containerId).querySelectorAll('.stock-filter-btn');
       btns.forEach(b => {
@@ -2142,8 +2168,9 @@
         const pType = ['V','C','CV'].includes(p.type) ? p.type : 'CV';
         const typeBadge = '<span class="stock-type-badge type-' + pType + '">' + (typeLabels[pType] || '') + '</span>';
 
-        const photoHtml = p.photo
-          ? '<img class="cat-photo" src="' + esc(p.photo) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+        const photoUrl = drivePhotoUrl(p.photo);
+        const photoHtml = photoUrl
+          ? '<img class="cat-photo" src="' + esc(photoUrl) + '" alt="" loading="lazy" onerror="catPhotoError(this)"><div class="cat-photo-empty" style="display:none">📷</div>'
           : '<div class="cat-photo-empty">📷</div>';
 
         const prixLine = [];
