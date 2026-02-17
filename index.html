@@ -633,30 +633,50 @@
     .photo-btn:active { background: var(--rose-dim); border-color: var(--rose); }
     .photo-btn.taken { border-color: var(--mint); color: var(--mint); background: var(--mint-dim); }
 
-    /* ── Live camera viewfinder in modal ── */
-    .photo-viewfinder {
-      position: relative; width: 100%; aspect-ratio: 4/3;
-      background: #000; border-radius: var(--radius-sm);
-      overflow: hidden; margin-bottom: 10px; display: none;
+    /* ── Fullscreen photo viewfinder overlay ── */
+    .vf-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      background: #000; display: none;
+      flex-direction: column;
     }
-    .photo-viewfinder.active { display: block; animation: fadeUp 0.3s ease; }
-    .photo-viewfinder video {
-      width: 100%; height: 100%; object-fit: cover;
+    .vf-overlay.active { display: flex; animation: fadeUp 0.25s ease; }
+    .vf-overlay video {
+      width: 100%; flex: 1; object-fit: cover;
     }
-    .photo-viewfinder .vf-shutter {
-      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(255,255,255,0.9); border: 3px solid var(--rose);
+    .vf-ui {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: space-between; pointer-events: none;
+    }
+    .vf-close-btn {
+      pointer-events: auto;
+      position: absolute; top: 16px; right: 16px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(0,0,0,0.6); border: none; color: #fff;
+      font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .vf-bottom {
+      pointer-events: auto;
+      display: flex; flex-direction: column; align-items: center;
+      padding-bottom: 40px; gap: 12px;
+    }
+    .vf-hint {
+      color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+    .vf-shutter-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); border: 4px solid var(--rose);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 22px; box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.4);
       transition: all 0.15s;
     }
-    .photo-viewfinder .vf-shutter:active { transform: translateX(-50%) scale(0.9); background: var(--rose); }
-    .photo-viewfinder .vf-close {
-      position: absolute; top: 8px; right: 8px;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(0,0,0,0.5); border: none; color: #fff;
-      font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    .vf-shutter-btn:active { transform: scale(0.9); background: var(--rose); }
+    .vf-shutter-ring {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 3px solid var(--rose); background: transparent;
     }
 
     /* ── Toast notification ── */
@@ -1373,7 +1393,7 @@
 
     // ── Photo viewfinder (live camera in modal) ──
     async function openViewfinder() {
-      const vf = document.getElementById('photoViewfinder');
+      const vf = document.getElementById('vfOverlay');
       const video = document.getElementById('photoVideo');
       vf.classList.add('active');
       try {
@@ -1420,8 +1440,8 @@
     }
 
     function closeViewfinder() {
-      const vf = document.getElementById('photoViewfinder');
-      vf.classList.remove('active');
+      const vf = document.getElementById('vfOverlay');
+      if (vf) vf.classList.remove('active');
       if (viewfinderStream) {
         viewfinderStream.getTracks().forEach(t => t.stop());
         viewfinderStream = null;
