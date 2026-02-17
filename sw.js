@@ -1,27 +1,27 @@
 // ============================================================
-// SERVICE WORKER — Inventaire Salon PWA
+// SERVICE WORKER — Inventaire Salon PWA v3
 // ============================================================
 // Stratégie :
-//   - App shell (HTML, fonts, scanner lib) → Cache First
+//   - index.html → Network First (toujours la dernière version)
+//   - Libs & fonts → Cache First (stables)
 //   - API Google Apps Script → Network Only (pas de cache)
 //   - Mise à jour automatique quand une nouvelle version est déployée
 // ============================================================
 
-const CACHE_NAME = 'inventaire-salon-v1';
+const CACHE_NAME = 'inventaire-salon-v3';
 
 // Fichiers à pré-cacher au moment de l'installation
 const APP_SHELL = [
   '/index.html',
   '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
   'https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap'
 ];
 
 // ── INSTALL : pré-cache de l'app shell ──
 self.addEventListener('install', event => {
-  console.log('[SW] Install — cache app shell');
+  console.log('[SW] Install — cache v3');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(APP_SHELL))
@@ -57,7 +57,7 @@ self.addEventListener('fetch', event => {
   }
 
   // Google Drive thumbnails (photos produits) → Network First, cache fallback
-  if (url.hostname === 'drive.google.com') {
+  if (url.hostname === 'drive.google.com' || url.hostname.includes('googleusercontent.com')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
@@ -70,13 +70,30 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // App shell + static assets → Cache First, network fallback
+  // index.html & navigations → Network First (toujours la dernière version)
+  if (event.request.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname === '/') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Update cache with latest version
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => {
+          // Offline: serve cached version
+          return caches.match(event.request).then(cached => cached || caches.match('/index.html'));
+        })
+    );
+    return;
+  }
+
+  // Libs, fonts, static assets → Cache First (they don't change)
   event.respondWith(
     caches.match(event.request)
       .then(cached => {
         if (cached) return cached;
         return fetch(event.request).then(response => {
-          // Cache les réponses valides pour usage futur
           if (response.ok && event.request.method === 'GET') {
             const clone = response.clone();
             caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
@@ -85,7 +102,6 @@ self.addEventListener('fetch', event => {
         });
       })
       .catch(() => {
-        // Fallback offline : retourner la page principale
         if (event.request.mode === 'navigate') {
           return caches.match('/index.html');
         }
