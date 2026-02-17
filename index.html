@@ -390,6 +390,33 @@
     .stock-nonscan-list { display: none; }
     .stock-nonscan-list.open { display: block; animation: fadeUp 0.25s ease; }
 
+    /* ═══ CATALOGUE SCREEN ═══ */
+    .cat-item {
+      display: flex; gap: 12px; padding: 14px 16px;
+      border-bottom: 1px solid var(--border); align-items: center;
+    }
+    .cat-photo {
+      width: 56px; height: 56px; border-radius: 8px; object-fit: cover;
+      background: var(--surface); flex-shrink: 0;
+    }
+    .cat-photo-empty {
+      width: 56px; height: 56px; border-radius: 8px; flex-shrink: 0;
+      background: var(--surface); display: flex; align-items: center;
+      justify-content: center; font-size: 20px; opacity: 0.3;
+    }
+    .cat-item-details { flex: 1; min-width: 0; }
+    .cat-item-name {
+      font-size: 14px; font-weight: 700; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cat-item-meta {
+      font-size: 11px; color: var(--text-dim); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cat-item-prix {
+      font-size: 11px; color: var(--mint); font-weight: 600; margin-top: 3px;
+    }
+
     /* ═══ EXPORT SALONKEE SCREEN ═══ */
     .export-date-bar { padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
     .export-date-bar select { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border-light); background: var(--card-bg); color: var(--text-primary); font-size: 14px; min-height: 44px; }
@@ -895,6 +922,33 @@
     </div>
   </div>
 
+  <!-- CATALOGUE SCREEN -->
+  <div class="screen" id="catalogueScreen">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="logo-mini">✂️</div>
+        <h2>Catalogue</h2>
+      </div>
+      <div class="user-pill" id="catCount"></div>
+    </div>
+    <div class="stock-toolbar">
+      <div class="stock-toolbar-row">
+        <div class="stock-search-wrap">
+          <input type="text" class="stock-search" id="catSearch" placeholder="Rechercher produit, marque, EAN..." oninput="filterCatalogue()">
+        </div>
+      </div>
+      <div class="stock-toolbar-row stock-zone-pills" id="catCatPills"></div>
+      <div class="stock-toolbar-row stock-zone-pills" id="catMarquePills"></div>
+      <div class="stock-toolbar-row stock-zone-pills" id="catTypePills"></div>
+    </div>
+    <div class="stock-list" id="catList">
+      <div class="export-empty">
+        <div class="empty-icon">📋</div>
+        <p>Chargement du catalogue...</p>
+      </div>
+    </div>
+  </div>
+
   <!-- TAB BAR -->
   <div class="tab-bar" id="tabBar">
     <div class="tab-bar-inner">
@@ -906,6 +960,9 @@
       </button>
       <button class="tab-item" id="tabExport" onclick="switchTab('export')">
         <span class="tab-icon">📤</span>Export
+      </button>
+      <button class="tab-item" id="tabCatalogue" onclick="switchTab('catalogue')">
+        <span class="tab-icon">📋</span>Catalogue
       </button>
     </div>
   </div>
@@ -1691,6 +1748,7 @@
       document.getElementById('scanScreen').classList.remove('active');
       document.getElementById('stockScreen').classList.remove('active');
       document.getElementById('exportScreen').classList.remove('active');
+      document.getElementById('catalogueScreen').classList.remove('active');
 
       document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
 
@@ -1712,6 +1770,10 @@
         document.getElementById('exportScreen').classList.add('active');
         document.getElementById('tabExport').classList.add('active');
         initExportScreen();
+      } else if (tab === 'catalogue') {
+        document.getElementById('catalogueScreen').classList.add('active');
+        document.getElementById('tabCatalogue').classList.add('active');
+        initCatalogueScreen();
       }
     }
 
@@ -2000,6 +2062,106 @@
       }
     }
 
+
+    // ═══════════ CATALOGUE VIEW ═══════════
+
+    let catCatFilter = '';
+    let catMarqueFilter = '';
+    let catTypeFilter = '';
+    let catInitDone = false;
+
+    function initCatalogueScreen() {
+      if (!catInitDone) {
+        buildCatFilters();
+        catInitDone = true;
+      }
+      filterCatalogue();
+    }
+
+    function buildCatFilters() {
+      const items = Object.values(catalogue);
+      // Categories
+      const cats = [...new Set(items.map(p => p.categorie).filter(Boolean))].sort();
+      const catHtml = '<button class="stock-filter-btn active" onclick="setCatCat(\'\')">Toutes</button>' +
+        cats.map(c => '<button class="stock-filter-btn" onclick="setCatCat(\'' + esc(c) + '\')">' + esc(c) + '</button>').join('');
+      document.getElementById('catCatPills').innerHTML = catHtml;
+      // Marques
+      const marques = [...new Set(items.map(p => p.marque).filter(Boolean))].sort();
+      const mHtml = '<button class="stock-filter-btn active" onclick="setCatMarque(\'\')">Toutes marques</button>' +
+        marques.map(m => '<button class="stock-filter-btn" onclick="setCatMarque(\'' + esc(m) + '\')">' + esc(m) + '</button>').join('');
+      document.getElementById('catMarquePills').innerHTML = mHtml;
+      // Types
+      const tHtml = '<button class="stock-filter-btn active" onclick="setCatType(\'\')">Tous types</button>' +
+        '<button class="stock-filter-btn" onclick="setCatType(\'C\')">🔒 Conso</button>' +
+        '<button class="stock-filter-btn" onclick="setCatType(\'CV\')">🔷 Les deux</button>' +
+        '<button class="stock-filter-btn" onclick="setCatType(\'V\')">🏷 Vente</button>';
+      document.getElementById('catTypePills').innerHTML = tHtml;
+    }
+
+    function setCatCat(v) { catCatFilter = v; updateCatPillActive('catCatPills', v); filterCatalogue(); }
+    function setCatMarque(v) { catMarqueFilter = v; updateCatPillActive('catMarquePills', v); filterCatalogue(); }
+    function setCatType(v) { catTypeFilter = v; updateCatPillActive('catTypePills', v); filterCatalogue(); }
+
+    function updateCatPillActive(containerId, val) {
+      const btns = document.getElementById(containerId).querySelectorAll('.stock-filter-btn');
+      btns.forEach(b => {
+        const isAll = !val && b.textContent.startsWith('Tout');
+        const isMatch = val && b.textContent.includes(val);
+        b.classList.toggle('active', isAll || isMatch);
+      });
+    }
+
+    function filterCatalogue() {
+      const search = (document.getElementById('catSearch').value || '').toLowerCase();
+      let items = Object.values(catalogue);
+
+      if (catCatFilter) items = items.filter(p => p.categorie === catCatFilter);
+      if (catMarqueFilter) items = items.filter(p => p.marque === catMarqueFilter);
+      if (catTypeFilter) items = items.filter(p => (p.type || 'CV') === catTypeFilter);
+      if (search) {
+        items = items.filter(p =>
+          (p.produit || '').toLowerCase().includes(search) ||
+          (p.marque || '').toLowerCase().includes(search) ||
+          (p.ean || '').includes(search) ||
+          (p.categorie || '').toLowerCase().includes(search)
+        );
+      }
+
+      items.sort((a, b) => (a.produit || '').localeCompare(b.produit || ''));
+
+      document.getElementById('catCount').textContent = items.length + ' produit' + (items.length > 1 ? 's' : '');
+
+      const list = document.getElementById('catList');
+      if (!items.length) {
+        list.innerHTML = '<div class="export-empty"><div class="empty-icon">📋</div><p>Aucun produit trouv\u00e9.</p></div>';
+        return;
+      }
+
+      list.innerHTML = items.map(p => {
+        const typeLabels = { V: 'Vente', C: 'Conso', CV: 'V+C' };
+        const pType = ['V','C','CV'].includes(p.type) ? p.type : 'CV';
+        const typeBadge = '<span class="stock-type-badge type-' + pType + '">' + (typeLabels[pType] || '') + '</span>';
+
+        const photoHtml = p.photo
+          ? '<img class="cat-photo" src="' + esc(p.photo) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+          : '<div class="cat-photo-empty">📷</div>';
+
+        const prixLine = [];
+        if (p.prixAchat) prixLine.push('Achat: ' + Number(p.prixAchat).toFixed(2) + '\u20ac');
+        if (p.prixVente) prixLine.push('Vente: ' + Number(p.prixVente).toFixed(2) + '\u20ac');
+        if (p.stockTheorique) prixLine.push('Th\u00e9o: ' + p.stockTheorique);
+
+        return '<div class="cat-item">' +
+          photoHtml +
+          '<div class="cat-item-details">' +
+            '<div class="cat-item-name">' + esc(p.produit || 'Sans nom') + ' ' + typeBadge + '</div>' +
+            '<div class="cat-item-meta">' + esc(p.marque || '') + (p.categorie ? ' \u00b7 ' + esc(p.categorie) : '') + '</div>' +
+            '<div class="cat-item-meta">' + esc(p.ean) + '</div>' +
+            (prixLine.length ? '<div class="cat-item-prix">' + prixLine.join(' \u00b7 ') + '</div>' : '') +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
 
     // ═══════════ EXPORT SALONKEE ═══════════
 
