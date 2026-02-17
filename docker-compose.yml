@@ -1,0 +1,12 @@
+services:
+  stockassist:
+    build: .
+    container_name: stockassist
+    networks:
+      coolify:
+        aliases:
+          - stockassist
+
+networks:
+  coolify:
+    external: true
