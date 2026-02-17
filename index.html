@@ -193,19 +193,23 @@
     #reader > div:not(#reader__scan_region) { display: none !important; }
 
     .scan-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
-    .scan-line {
-      position: absolute; top: 50%; left: 12%; right: 12%; height: 2px;
+    .scan-target {
+      position: absolute; pointer-events: none;
+      border: 2px solid transparent;
+    }
+    .scan-target .scan-line {
+      position: absolute; top: 50%; left: 0; right: 0; height: 2px;
       background: var(--rose); transform: translateY(-50%); border-radius: 2px;
       box-shadow: 0 0 16px var(--rose-glow), 0 0 40px var(--rose-dim);
       animation: pulse-line 2.5s ease-in-out infinite;
     }
     @keyframes pulse-line { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
-    .corner { position: absolute; width: 24px; height: 24px; }
-    .corner::before, .corner::after { content: ''; position: absolute; background: var(--rose); border-radius: 2px; }
-    .corner-tl { top: 25%; left: 12%; } .corner-tl::before { top:0;left:0;width:24px;height:3px; } .corner-tl::after { top:0;left:0;width:3px;height:24px; }
-    .corner-tr { top: 25%; right: 12%; } .corner-tr::before { top:0;right:0;width:24px;height:3px; } .corner-tr::after { top:0;right:0;width:3px;height:24px; }
-    .corner-bl { bottom: 25%; left: 12%; } .corner-bl::before { bottom:0;left:0;width:24px;height:3px; } .corner-bl::after { bottom:0;left:0;width:3px;height:24px; }
-    .corner-br { bottom: 25%; right: 12%; } .corner-br::before { bottom:0;right:0;width:24px;height:3px; } .corner-br::after { bottom:0;right:0;width:3px;height:24px; }
+    .scan-target .corner { position: absolute; width: 20px; height: 20px; }
+    .scan-target .corner::before, .scan-target .corner::after { content: ''; position: absolute; background: var(--rose); border-radius: 2px; }
+    .scan-target .c-tl { top: -1px; left: -1px; } .scan-target .c-tl::before { top:0;left:0;width:20px;height:3px; } .scan-target .c-tl::after { top:0;left:0;width:3px;height:20px; }
+    .scan-target .c-tr { top: -1px; right: -1px; } .scan-target .c-tr::before { top:0;right:0;width:20px;height:3px; } .scan-target .c-tr::after { top:0;right:0;width:3px;height:20px; }
+    .scan-target .c-bl { bottom: -1px; left: -1px; } .scan-target .c-bl::before { bottom:0;left:0;width:20px;height:3px; } .scan-target .c-bl::after { bottom:0;left:0;width:3px;height:20px; }
+    .scan-target .c-br { bottom: -1px; right: -1px; } .scan-target .c-br::before { bottom:0;right:0;width:20px;height:3px; } .scan-target .c-br::after { bottom:0;right:0;width:3px;height:20px; }
 
     .scan-flash { position: absolute; inset: 0; z-index: 20; pointer-events: none; opacity: 0; transition: opacity 0.08s ease-out; }
     .scan-flash.flash-success { background: var(--mint-glow); border: 5px solid var(--mint); opacity:1; animation: flash-out 0.7s ease-out forwards; }
@@ -374,6 +378,17 @@
     .stock-type-badge.type-V { background: rgba(46,204,113,.12); color: #2ecc71; }
     .stock-type-badge.type-C { background: rgba(52,152,219,.12); color: #3498db; }
     .stock-type-badge.type-CV { background: rgba(243,156,18,.12); color: #f39c12; }
+    .stock-nonscan-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; margin-top: 8px; cursor: pointer;
+      background: var(--surface); border: 1px dashed var(--border-light);
+      border-radius: var(--radius-sm); color: var(--amber);
+      font-size: 12px; font-weight: 700; user-select: none;
+    }
+    .stock-nonscan-toggle .chevron { transition: transform 0.2s; font-size: 10px; }
+    .stock-nonscan-toggle.open .chevron { transform: rotate(180deg); }
+    .stock-nonscan-list { display: none; }
+    .stock-nonscan-list.open { display: block; animation: fadeUp 0.25s ease; }
 
     /* ═══ EXPORT SALONKEE SCREEN ═══ */
     .export-date-bar { padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
@@ -750,10 +765,12 @@
 
     <div class="scanner-viewport">
       <div id="reader"></div>
-      <div class="scan-overlay">
-        <div class="scan-line"></div>
-        <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
-        <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+      <div class="scan-overlay" id="scanOverlay">
+        <div class="scan-target" id="scanTarget">
+          <div class="scan-line"></div>
+          <div class="corner c-tl"></div><div class="corner c-tr"></div>
+          <div class="corner c-bl"></div><div class="corner c-br"></div>
+        </div>
       </div>
       <div class="scan-flash" id="scanFlash"></div>
       <div class="scan-icon" id="scanIcon"></div>
@@ -850,10 +867,10 @@
       <div class="user-pill" id="exportUserPill"></div>
     </div>
     <div class="export-date-bar" style="gap:8px;">
-      <select id="exportDateFrom" onchange="loadExportData()" style="flex:1;">
+      <select class="stock-date-input" id="exportDateFrom" onchange="loadExportData()" style="flex:1;">
         <option value="">📅 Du…</option>
       </select>
-      <select id="exportDateTo" onchange="loadExportData()" style="flex:1;">
+      <select class="stock-date-input" id="exportDateTo" onchange="loadExportData()" style="flex:1;">
         <option value="">📅 Au… (même jour)</option>
       </select>
     </div>
@@ -1083,6 +1100,7 @@
       localStorage.setItem('inv_zone', currentZone);
 
       await loadCatalogue();
+      await loadCategories();
 
       document.getElementById('loginScreen').classList.remove('active');
       document.getElementById('scanScreen').classList.add('active');
@@ -1173,14 +1191,22 @@
         const d = await apiCall('getCatalogue');
         if (d.produits) {
           d.produits.forEach(p => { catalogue[p.ean] = p; });
-          // Populate category suggestions for the add-product modal
-          const cats = [...new Set(d.produits.map(p => p.categorie).filter(Boolean))].sort();
-          const dl = document.getElementById('catSuggestions');
-          if (dl) dl.innerHTML = cats.map(c => '<option value="' + esc(c) + '">').join('');
         }
       } catch (err) {
         console.error('loadCatalogue error:', err);
         showToast('\u26a0\ufe0f Catalogue non charg\u00e9 \u2014 v\u00e9rifiez la connexion', 'warn');
+      }
+    }
+
+    async function loadCategories() {
+      try {
+        const d = await apiCall('getCategories');
+        if (d.categories) {
+          const dl = document.getElementById('catSuggestions');
+          if (dl) dl.innerHTML = d.categories.map(c => '<option value="' + esc(c) + '">').join('');
+        }
+      } catch (err) {
+        console.error('loadCategories error:', err);
       }
     }
 
@@ -1220,7 +1246,29 @@
           ]
         },
         onScanDetected, () => {}
-      ).then(() => { scannerActive = true; }).catch(e => console.error('Camera:', e));
+      ).then(() => {
+        scannerActive = true;
+        // Position our overlay to match the actual qrbox
+        setTimeout(alignScanTarget, 300);
+      }).catch(e => console.error('Camera:', e));
+    }
+
+    function alignScanTarget() {
+      const reader = document.getElementById('reader');
+      const target = document.getElementById('scanTarget');
+      if (!reader || !target) return;
+      // Find the video element to get actual rendered size
+      const video = reader.querySelector('video');
+      if (!video) return;
+      const rRect = reader.getBoundingClientRect();
+      const vRect = video.getBoundingClientRect();
+      // Calculate qrbox center within the reader
+      const vw = Math.min(rRect.width, 500);
+      const qrW = Math.round(vw * 0.76);
+      const qrH = Math.round(qrW * 0.35);
+      const left = Math.round((rRect.width - qrW) / 2);
+      const top = Math.round((rRect.height - qrH) / 2);
+      target.style.cssText = 'position:absolute;left:' + left + 'px;top:' + top + 'px;width:' + qrW + 'px;height:' + qrH + 'px;';
     }
 
     function togglePause() {
@@ -1293,10 +1341,15 @@
       renderHistory();
 
       currentQty = 1; document.getElementById('qtyDisplay').textContent = 1;
-      // Reset état to Fermé
       // État Ouvert/Fermé is now sticky — user toggles it intentionally
-      sendScan(scanData);
-      if (!isKnown) setTimeout(() => showUnknownModal(ean), 700);
+
+      if (isKnown) {
+        sendScan(scanData);
+      } else {
+        // Defer: store pending scan, send after modal resolves with real product name
+        pendingScanData = scanData;
+        setTimeout(() => showUnknownModal(ean), 700);
+      }
     }
 
     // ── Undo ──
@@ -1356,11 +1409,13 @@
     }
     window.addEventListener('online', () => { document.getElementById('offlinePill').classList.remove('show'); flushQueue(); });
     window.addEventListener('offline', () => { document.getElementById('offlinePill').classList.add('show'); });
+    window.addEventListener('resize', () => { if (scannerActive) alignScanTarget(); });
 
     // ── Unknown modal ──
     let capturedPhotoBase64 = null;
     let viewfinderStream = null;
     let savingProduct = false;
+    let pendingScanData = null;
 
     // ── Photo viewfinder (live camera in modal) ──
     async function openViewfinder() {
@@ -1473,6 +1528,8 @@
       document.getElementById('modalPrixVente').value = '';
       capturedPhotoBase64 = null;
       savingProduct = false;
+      // Flush pending scan as-is (INCONNU since user chose to ignore)
+      if (pendingScanData) { sendScan(pendingScanData); pendingScanData = null; }
       // Reset save button state
       const saveBtn = document.getElementById('btnSaveProduct');
       if (saveBtn) { saveBtn.classList.remove('loading'); saveBtn.disabled = false; }
@@ -1545,7 +1602,13 @@
         refreshStats(); renderHistory();
       }
 
-      // ── Success feedback + close ──
+      // Update pending scan with real product info before flush
+      if (pendingScanData && pendingScanData.ean === ean) {
+        pendingScanData.produit = produit;
+        pendingScanData.marque = marque;
+      }
+
+      // ── Success feedback + close (closeModal will flush the pending scan) ──
       beepSuccess(); flashScan('success');
       showToast('\u2705 ' + produit + ' ajout\u00e9 au catalogue', 'success');
       closeModal();
@@ -1799,38 +1862,21 @@
       document.getElementById('stockSummary').style.display = 'flex';
       updateStockSummary(items);
 
-      // Sort: scanned first, then écart négatifs (manques), then alphabétique
-      items.sort((a, b) => {
-        if (a.scanned !== b.scanned) return a.scanned ? -1 : 1;
+      // Separate scanned from non-scanned
+      const scanned = items.filter(p => p.scanned !== false);
+      const notScanned = items.filter(p => p.scanned === false);
+
+      // Sort scanned: écart négatifs first, then alphabétique
+      scanned.sort((a, b) => {
         if (a.ecart !== b.ecart) return a.ecart - b.ecart;
         return (a.produit || '').localeCompare(b.produit || '');
       });
 
-      list.innerHTML = items.map(p => {
-        const isNotScanned = p.scanned === false;
-
-        // Type badge (shared)
+      let html = scanned.map(p => {
+        // Type badge
         const typeLabels = { V: 'Vente', C: 'Conso', CV: 'V+C' };
         const pType = ['V','C','CV'].includes(p.type) ? p.type : 'CV';
         const typeBadge = '<span class="stock-type-badge type-' + pType + '">' + (typeLabels[pType] || esc(p.type)) + '</span>';
-
-        // Non-scanned products: distinct UI
-        if (isNotScanned) {
-          return '<div class="stock-item" style="opacity:0.6;">' +
-            '<div class="stock-qty-block"><div class="stock-qty-total" style="color:var(--text-dim);font-size:13px;">—</div></div>' +
-            '<div class="stock-item-details">' +
-              '<div class="stock-item-name">' + esc(p.produit || 'INCONNU') + (p.marque ? ' · ' + esc(p.marque) : '') + typeBadge + '</div>' +
-              '<div class="stock-item-meta">' + esc(p.ean) + (p.categorie ? ' · ' + esc(p.categorie) : '') + (p.theorique > 0 ? ' · Théo: ' + p.theorique : '') + '</div>' +
-              '<div style="font-size:10px;color:var(--amber);font-weight:700;margin-top:1px;">⚠ Non scanné — potentiellement en stock</div>' +
-            '</div>' +
-            '<div class="stock-item-right" style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">' +
-              '<div class="stock-item-ecart" style="color:var(--text-dim);font-size:10px;">non scanné</div>' +
-              '<button onclick="markStockZero(\'' + esc(p.ean) + '\',\'' + esc(p.produit) + '\',\'' + esc(p.marque||'') + '\')" ' +
-                'style="padding:4px 10px;border-radius:6px;border:1px solid var(--coral);background:var(--coral-dim);color:var(--coral);font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;pointer-events:auto;">' +
-                'Stock = 0</button>' +
-            '</div>' +
-          '</div>';
-        }
 
         const ecartClass = p.ecart < 0 ? 'neg' : p.ecart > 0 ? 'pos' : 'zero';
         const ecartText = p.ecart > 0 ? '+' + p.ecart : p.ecart === 0 ? '=' : p.ecart;
@@ -1839,22 +1885,50 @@
           : '';
 
         let bottomLine = '';
-        if (p.ecart < 0) bottomLine = '<div style="font-size:10px;color:var(--coral);font-weight:700;margin-top:1px;">▼ ' + Math.abs(p.ecart) + ' de moins · perte ' + (p.perteSeche||p.perteSèche||0).toFixed(0) + '€</div>';
-        else if (p.ecart > 0) bottomLine = '<div style="font-size:10px;color:var(--mint);font-weight:700;margin-top:1px;">▲ ' + p.ecart + ' de plus que prévu</div>';
+        if (p.ecart < 0) bottomLine = '<div style="font-size:10px;color:var(--coral);font-weight:700;margin-top:1px;">\u25BC ' + Math.abs(p.ecart) + ' de moins \u00b7 perte ' + (p.perteSeche||p.perteSèche||0).toFixed(0) + '\u20ac</div>';
+        else if (p.ecart > 0) bottomLine = '<div style="font-size:10px;color:var(--mint);font-weight:700;margin-top:1px;">\u25B2 ' + p.ecart + ' de plus que pr\u00e9vu</div>';
 
         return '<div class="stock-item">' +
           '<div class="stock-qty-block"><div class="stock-qty-total">' + (parseInt(p.total)||0) + '</div><div class="stock-qty-split">' + splitHtml + '</div></div>' +
           '<div class="stock-item-details">' +
-            '<div class="stock-item-name">' + esc(p.produit || 'INCONNU') + (p.marque ? ' · ' + esc(p.marque) : '') + typeBadge + '</div>' +
-            '<div class="stock-item-meta">' + esc(p.ean) + (p.categorie ? ' · ' + esc(p.categorie) : '') + (p.theorique > 0 ? ' · Théo: ' + p.theorique : '') + '</div>' +
+            '<div class="stock-item-name">' + esc(p.produit || 'INCONNU') + (p.marque ? ' \u00b7 ' + esc(p.marque) : '') + typeBadge + '</div>' +
+            '<div class="stock-item-meta">' + esc(p.ean) + (p.categorie ? ' \u00b7 ' + esc(p.categorie) : '') + (p.theorique > 0 ? ' \u00b7 Th\u00e9o: ' + p.theorique : '') + '</div>' +
             bottomLine +
           '</div>' +
           '<div class="stock-item-right">' +
-            '<div class="stock-item-price">' + (p.prixVente ? (p.valeurVente||0).toFixed(0) + '€' : '') + '</div>' +
+            '<div class="stock-item-price">' + (p.prixVente ? (p.valeurVente||0).toFixed(0) + '\u20ac' : '') + '</div>' +
             '<div class="stock-item-ecart ' + ecartClass + '">' + (p.theorique > 0 ? ecartText : '') + '</div>' +
           '</div>' +
         '</div>';
       }).join('');
+
+      // Non-scanned: hidden behind collapsible toggle
+      if (notScanned.length > 0) {
+        notScanned.sort((a, b) => (a.produit || '').localeCompare(b.produit || ''));
+        html += '<div class="stock-nonscan-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\');this.classList.toggle(\'open\')">' +
+          '<span>\u26A0 ' + notScanned.length + ' produit(s) non scann\u00e9(s) \u2014 ignor\u00e9(s) du calcul</span><span class="chevron">\u25BC</span></div>';
+        html += '<div class="stock-nonscan-list">';
+        html += notScanned.map(p => {
+          const typeLabels = { V: 'Vente', C: 'Conso', CV: 'V+C' };
+          const pType = ['V','C','CV'].includes(p.type) ? p.type : 'CV';
+          const typeBadge = '<span class="stock-type-badge type-' + pType + '">' + (typeLabels[pType] || esc(p.type)) + '</span>';
+          return '<div class="stock-item" style="opacity:0.5;">' +
+            '<div class="stock-qty-block"><div class="stock-qty-total" style="color:var(--text-dim);font-size:13px;">\u2014</div></div>' +
+            '<div class="stock-item-details">' +
+              '<div class="stock-item-name">' + esc(p.produit || 'INCONNU') + (p.marque ? ' \u00b7 ' + esc(p.marque) : '') + typeBadge + '</div>' +
+              '<div class="stock-item-meta">' + esc(p.ean) + (p.categorie ? ' \u00b7 ' + esc(p.categorie) : '') + (p.theorique > 0 ? ' \u00b7 Th\u00e9o: ' + p.theorique : '') + '</div>' +
+            '</div>' +
+            '<div class="stock-item-right" style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">' +
+              '<button onclick="event.stopPropagation();markStockZero(\'' + esc(p.ean) + '\',\'' + esc(p.produit) + '\',\'' + esc(p.marque||'') + '\')" ' +
+                'style="padding:4px 10px;border-radius:6px;border:1px solid var(--coral);background:var(--coral-dim);color:var(--coral);font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;">' +
+                'Stock = 0</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        html += '</div>';
+      }
+
+      list.innerHTML = html;
     }
 
     function updateStockSummary(items) {
@@ -1987,7 +2061,7 @@
           }
 
           exportAllStock = data.stock
-            .filter(p => p.total > 0 && p.ean && p.ean.length >= 8)
+            .filter(p => p.scanned !== false && p.total > 0 && p.ean && p.ean.length >= 8)
             .sort((a, b) => (a.produit || '').localeCompare(b.produit || ''));
           exportAllStock._date = date;
 
@@ -2199,7 +2273,19 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('SW registered:', reg.scope))
+          .then(reg => {
+            console.log('SW registered:', reg.scope);
+            // Check for updates and auto-reload when new version is installed
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'activated') {
+                  console.log('[SW] New version activated — reloading');
+                  window.location.reload();
+                }
+              });
+            });
+          })
           .catch(err => console.log('SW registration failed:', err));
         // Show offline pill if app starts without network
         if (!navigator.onLine) document.getElementById('offlinePill').classList.add('show');
