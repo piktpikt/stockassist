@@ -182,8 +182,8 @@
       position: relative; width: 100%; max-width: 500px;
       margin: 0 auto; aspect-ratio: 4/3; background: #000; overflow: hidden;
     }
-    #reader { width: 100%; height: 100%; }
-    #reader video { object-fit: cover !important; }
+    #reader { width: 100%; height: 100%; background: #000; }
+    #reader video { object-fit: contain !important; width: 100% !important; height: 100% !important; }
     #reader__scan_region { border: none !important; }
     #reader__dashboard, #reader img[alt="Info icon"], #reader__header_message { display: none !important; }
     /* Hide html5-qrcode's built-in qrbox white markers */
@@ -907,9 +907,6 @@
       <button class="tab-item" id="tabExport" onclick="switchTab('export')">
         <span class="tab-icon">📤</span>Export
       </button>
-      <button class="tab-item" id="tabConfig" onclick="goToLogin()">
-        <span class="tab-icon">⚙️</span>Config
-      </button>
     </div>
   </div>
 
@@ -1248,8 +1245,9 @@
         onScanDetected, () => {}
       ).then(() => {
         scannerActive = true;
-        // Position our overlay to match the actual qrbox
-        setTimeout(alignScanTarget, 300);
+        // Position our overlay to match the actual qrbox (retry for mobile)
+        setTimeout(alignScanTarget, 500);
+        setTimeout(alignScanTarget, 1500);
       }).catch(e => console.error('Camera:', e));
     }
 
@@ -1257,17 +1255,44 @@
       const reader = document.getElementById('reader');
       const target = document.getElementById('scanTarget');
       if (!reader || !target) return;
-      // Find the video element to get actual rendered size
+
       const video = reader.querySelector('video');
-      if (!video) return;
-      const rRect = reader.getBoundingClientRect();
-      const vRect = video.getBoundingClientRect();
-      // Calculate qrbox center within the reader
-      const vw = Math.min(rRect.width, 500);
+      if (!video || !video.videoWidth || !video.videoHeight) {
+        // Video not ready, retry
+        setTimeout(alignScanTarget, 500);
+        return;
+      }
+
+      // With object-fit: contain, video content is centered inside the element
+      // We need to calculate where the content actually displays
+      const elemW = video.clientWidth;
+      const elemH = video.clientHeight;
+      const vidAspect = video.videoWidth / video.videoHeight;
+      const elemAspect = elemW / elemH;
+
+      let contentW, contentH, contentX, contentY;
+      if (vidAspect > elemAspect) {
+        // Video wider than container: black bars top/bottom
+        contentW = elemW;
+        contentH = elemW / vidAspect;
+        contentX = 0;
+        contentY = (elemH - contentH) / 2;
+      } else {
+        // Video taller than container: black bars left/right
+        contentH = elemH;
+        contentW = elemH * vidAspect;
+        contentX = (elemW - contentW) / 2;
+        contentY = 0;
+      }
+
+      // qrbox is centered within the video content area
+      const vw = Math.min(reader.clientWidth, 500);
       const qrW = Math.round(vw * 0.76);
       const qrH = Math.round(qrW * 0.35);
-      const left = Math.round((rRect.width - qrW) / 2);
-      const top = Math.round((rRect.height - qrH) / 2);
+
+      const left = Math.round(contentX + (contentW - qrW) / 2);
+      const top = Math.round(contentY + (contentH - qrH) / 2);
+
       target.style.cssText = 'position:absolute;left:' + left + 'px;top:' + top + 'px;width:' + qrW + 'px;height:' + qrH + 'px;';
     }
 
@@ -2270,12 +2295,25 @@
   </script>
   <script>
     // ═══════════ PWA — SERVICE WORKER ═══════════
+    // Force purge old caches if version mismatch
+    const APP_VERSION = 'v3';
+    if ('caches' in window) {
+      caches.keys().then(keys => {
+        keys.forEach(key => {
+          if (!key.includes(APP_VERSION)) {
+            console.log('[APP] Purging old cache:', key);
+            caches.delete(key);
+          }
+        });
+      });
+    }
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
+        navigator.serviceWorker.register('sw.js?v=3')
           .then(reg => {
             console.log('SW registered:', reg.scope);
-            // Check for updates and auto-reload when new version is installed
+            // Force check for updates
+            reg.update();
             reg.addEventListener('updatefound', () => {
               const newWorker = reg.installing;
               newWorker.addEventListener('statechange', () => {
@@ -2287,7 +2325,6 @@
             });
           })
           .catch(err => console.log('SW registration failed:', err));
-        // Show offline pill if app starts without network
         if (!navigator.onLine) document.getElementById('offlinePill').classList.add('show');
       });
     }
